@@ -1,0 +1,420 @@
+#+TITLE:Merge sort experiment Scene-04
+#+AUTHOR: VLEAD
+#+DATE: [2017-12-07 THU]
+#+SETUPFILE: ../../org-templates/level-2.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil'
+
+* Introduction
+- This template provides a tutorial on the merge subpart of the algorithm.
+- You will be asked to input two sorted arrays and the click on the 'merge' button until the arrays are merged.
+
+* Code and narration 
+** JS
+Global declaration of variables.
+#+BEGIN_SRC  javascript :tangle /static/js/merge_example.js :eval no :noweb yes
+var count = 0;
+var count1 = 0;
+var count2 = 0;
+var mergedarray = [];
+#+END_SRC
+
+- =merge= is a typical merge function of mergesort.
+- It takes =arr1= and =arr2= and merges them.
+#+BEGIN_SRC  javascript :tangle /static/js/merge_example.js :eval no :noweb yes
+function merge()
+{
+		var array1=document.getElementById('arr1').value;
+		var array1=array1.trim().split(" ");
+		var array2=document.getElementById('arr2').value;
+		var array2=array2.trim().split(" ");
+		var i = 0;
+		if(count == array1.length + array2.length)
+		{
+				return;
+		}
+		if(count1 == array1.length)
+		{
+				mergedarray[count++] = array2[count2];
+				count2++;
+		}
+		else if(count2 == array2.length)
+		{
+				mergedarray[count++] = array1[count1];
+				count1++;
+		}
+		else if(array1[count1] <= array2[count2])
+		{
+				mergedarray[count++] = array1[count1];
+				count1++;
+		}
+		else
+		{
+				mergedarray[count++] = array2[count2];
+				count2++;
+		}
+		draw(array1, array2);
+}
+#+END_SRC
+
+- =draw= function() is used to populate the arrays on the html page.
+- It populates the merged array, and the two sorted arrays.
+#+BEGIN_SRC  javascript :tangle /static/js/merge_example.js :eval no :noweb yes
+function draw(array1, array2)
+{
+		var table1 = document.getElementById('table1');
+		var table2 = document.getElementById('table2');
+		var table3 = document.getElementById('table3');
+		table1.innerHTML = null;
+		var temp = "<tr>";
+		for(i = 0; i < array1.length; i++)
+		{
+			if(i != count1)
+			{
+				temp += "<td style='border: 2px solid black;background-color:pink;text-align:center'>" + array1[i] + "</td>";
+			}
+			if(i == count1)
+			{
+				temp += "<td style='border: 2px solid black;background-color:pink;color:red;text-align:center'>" + array1[i] + "</td>";
+			}
+		}
+		temp += "</tr>";
+		table1.innerHTML = temp;
+		table2.innerHTML = null;
+		temp = "<tr>";
+		for(i = 0; i < array2.length; i++)
+		{
+			if(i != count2)
+			{
+				temp += "<td style='border: 2px solid black;background-color:pink;text-align:center'>" + array2[i] + "</td>";
+			}
+			if(i == count2)
+			{
+				temp += "<td style='border: 2px solid black;background-color:pink;color:red;text-align:center'>" + array2[i] + "</td>";
+			}
+		}
+		temp += "</tr>";
+		table2.innerHTML = temp;
+		table3.innerHTML = null;
+		temp = "<tr>";
+		for(i = 0; i < mergedarray.length; i++)
+		{
+			temp += "<td style='border: 2px solid black;background-color:yellow;text-align:center'>" + mergedarray[i] + "</td>";
+		}
+		temp += "</tr>";
+		table3.innerHTML = temp;
+}
+#+END_SRC
+
+- =reset= function provides functionality for the reset button used to reset the whole merge example.
+- We can click on Reset button and again give input entries to merge two arrays.
+#+BEGIN_SRC  javascript :tangle /static/js/merge_example.js :eval no :noweb yes
+function reset()
+{
+		var table1 = document.getElementById('table1');
+		var table2 = document.getElementById('table2');
+		var table3 = document.getElementById('table3');
+		var arr1 = document.getElementById('arr1');
+		var arr2 = document.getElementById('arr2');
+		arr1.value = null;
+		arr2.value = null;
+		table1.innerHTML = null;
+		table2.innerHTML = null;
+		table3.innerHTML = null;
+		count = 0;
+		count1 = 0;
+		count2 = 0;
+		mergedarray = [];
+}
+#+END_SRC
+
+** Layout HTML
+*** HTML for the experiment
+#+BEGIN_SRC  html :tangle /templates/scene04.html :eval no :noweb yes
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Merge Sort</title>
+    <script src="{{ url_for('static', filename='default/js/d3.v3.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/dagre-d3.js')}}"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='default/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link href="{{ url_for('static', filename='default/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='default/js/jquery.min.js')}}"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='default/css/sb-admin.css')}}" rel="stylesheet">
+    <style id="css">
+      /* This sets the color for "TK" nodes to a light blue green. */
+      g.type-TK > rect {
+        fill: #00ffd0;
+      }
+      p {
+        font-size: 18px;
+      }
+      text {
+        font-weight: 300;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+        font-size: 14px;
+      }
+      i {
+          border: solid black;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+      }
+      .left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+      }
+      .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        float:right;
+      }
+      input {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 10px 0;
+      }
+      #but1 {
+      display: inline-block;
+      vertical-align: middle;
+      }
+      #c{
+      display: inline-block;
+      margin-left: 400px;
+      }
+      #but2 {
+      display: inline-block;
+      vertical-align: middle;
+      }
+
+      .node rect {
+        stroke: #999;
+        fill: #fff;
+        stroke-width: 1.5px;
+      }
+
+      .edgePath path {
+        stroke: #333;
+        stroke-width: 1.5px;
+      }
+      div{
+        z-index:1;
+      }
+      div.bond
+      {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        z-index:3;
+        top: -10px;
+        background-color: #C8C8C8;
+      }
+      .bl{
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+
+  <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <a class="navbar-brand" href="#">DS-Lab</a>
+      <button style="background-color:#bfc9ca;margin-left:31px" class="btn btn-success" onclick="pane()">Pane</button>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <li class="nav-item active" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <a class="nav-link" href="#">
+              <span class="nav-link-text">
+                Merge-Sort
+              </span>
+            </a>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="References">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+              <span class="nav-link-text">
+                References
+              </span>
+              <i class="down"></i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseComponents">
+              <li>
+                <a href="https://en.wikipedia.org/wiki/Merge_sort">Wiki-pedia</a>
+              </li>
+              <li>
+                <a href="http://www.geeksforgeeks.org/merge-sort/">Geeks for Geeks</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+              <span class="nav-link-text">
+                Quizzes
+              </span>
+              <i class="down"></i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+              <li>
+                <a href="#">Quiz-1</a>
+              </li>
+              <li>
+                <a href="#">Quiz-2</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav sidenav-toggler">
+          <li class="nav-item">
+            <a class="nav-link text-center" id="sidenavToggler">
+              <i class="left"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <ul class="readcrumb">
+            <li >
+              <a href="#">VLEADS</a>
+            </li>
+            <li>
+                <a href="#">DS -> Merge-Sort</a>
+            </li>
+          </ul>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="content-wrapper">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center">
+          <h3>
+            MERGE
+          </h3>
+          <br/><br/><br/>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <h4>
+          Merge involves the following steps
+        </h4>
+        <table width="100%">
+          <tr>
+            <td>
+              <div class="well well-lg" width="50%">
+                <div class="list-group" style="width:40%">
+                  <a href="#" class="list-group-item list-group-item-action  list-group-item-info">
+                    <p>Compare the first elements of the two sorted arrays</p>
+                    <p>Take the minimum among them.</p>
+                    <p>Add it to the merged array</p>
+                    <p>Repeat the process until all the elements are added to the merged array</p>
+                  </a>
+                </div>
+              </div>
+            </td>
+            <td>
+              <img src="{{ url_for('static', filename='images/4.png')}}" alt="MergeSort overview"/>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <div class="form-group">
+                <label for="arr" style="font-size:130%">Please enter two sorted arrays to merge (space separated)</label>
+                <input type="text" id="arr1" class="form-control" style="width:20%;font-size: 120%" >
+                <input type="text" id="arr2" class="form-control" style="width:20%;font-size: 120%" >
+                <button type="button" id="but1" style="display:inline;left:17%;background-color:#606060;" class="btn btn-success btn-lg" onclick="merge()">Merge</button>
+                <button type="button" id="but1" style="display:inline;left:17%;background-color:#606060;" class="btn btn-success btn-lg" onclick="reset()">Reset</button>
+              </div>
+            </td>
+            <td>
+              <div class="container-fluid">
+                <div class="card mb-3">
+                  <h5>Given array</h5>
+                  <table id='table1' width="100%" height="100%">
+                  </table>
+                  <h5>Given array</h5>
+                  <table id='table2' width="100%" height="100%">
+                  </table>
+                  <h5>Merged array</h5>
+                  <table id='table3' width="100%" height="100%">
+                  </table>
+                </div>
+                <script src="../static/js/merge_example.js"></script>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <br/><br/><br/><br/><br/><br/><br/>
+      <div style="text-align: center">
+        <a href='/3' class="btn btn-primary" role="button"><< Back</a>
+        <a href='/5' class="btn btn-primary" role="button">Next >></a>
+      </div>
+    </div>
+      <!-- /.container-fluid -->
+
+    <!-- /.content-wrapper -->
+
+    <!-- Scroll to Top Button -->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Select "Logout" below if you are ready to end your current session.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ url_for('static', filename='default/js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/popper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/bootstrap.min.js')}}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{{ url_for('static', filename='default/js/jquery.easing.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/Chart.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/jquery.dataTables.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/dataTables.bootstrap4.js')}}"></script>
+    <!-- Custom scripts for this template -->
+    <script src="{{ url_for('static', filename='default/js/sb-admin.min.js')}}"></script>
+  </body>
+
+</html>
+
+
+#+END_SRC

@@ -1,0 +1,142 @@
+#+TITLE: Plan to realize experiment as a narrative
+#+AUTHOR: VLEAD
+#+DATE: [2018-02-27 Tue]
+#+SETUPFILE: ../org-templates/level-1.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil
+
+
+* Introduction
+  This document provides the plan for realization of
+  experiment as a narrative.
+
+* Milestone Snapshot
+  Each milestone has different tasks.  To get the experiment
+  working in the new format, it is not mandatory that all
+  the tasks within each milestone are completed.  The
+  building of the new experiment framework is iterative
+  while in each iteration, certain tasks from each of the
+  milestone are completed. 
+#+caption:  A snapshot of milestones
+#+name: milestone-snapshot
+  |---+----+-----+---------------------------------+------+--------+-----+-----+--------|
+  |   | S. | Req | Milestone                       | Plan | Status | Est | Act | Issues |
+  |   | no | Map |                                 |      |        | hrs | hrs |        |
+  |---+----+-----+---------------------------------+------+--------+-----+-----+--------|
+  |   | 1. |     | [[Convert the content to Org][Convert the content to Org]]      | [[https://gitlab.com/vxcg/res/cse/data-structures/mergesort/milestones/1][ref]]  |        |     |     |        |
+  |---+----+-----+---------------------------------+------+--------+-----+-----+--------|
+  |   | 2. |     | [[Provide components as a service][Provide components as a service]] | [[https://gitlab.com/vxcg/res/cse/data-structures/mergesort/milestones/2][ref]]  |        |     |     |        |
+  |---+----+-----+---------------------------------+------+--------+-----+-----+--------|
+  |   | 3. |     | [[Build the experiment interface]]  | [[https://gitlab.com/vxcg/res/cse/data-structures/mergesort/milestones/3][ref]]  |        |     |     |        |
+  |---+----+-----+---------------------------------+------+--------+-----+-----+--------|
+  |   | 4. |     | [[Experiment Weaving][Experiment Weaving]]              | [[https://gitlab.com/vxcg/res/cse/data-structures/mergesort/milestones/4][ref]]  |        |     |     |        |
+  |---+----+-----+---------------------------------+------+--------+-----+-----+--------|
+  |   |    |     | Total                           |      |        |     |     |        |
+  | ^ |    |     |                                 |      |        |     |     |        |
+  |---+----+-----+---------------------------------+------+--------+-----+-----+--------|
+  #+TBLFM: @3$7=remote(tbl-rlz-pln-ml-9, $est)
+  #+TBLFM: @3$8=remote(tbl-rlz-pln-ml-9, $act)
+
+  #+TBLFM: $est=vsum(@II+1..@-1)
+  #+TBLFM: $act=vsum(@II+1..@-1)
+
+* Detailed Plan
+** Convert the content to Org
+   The content is written in a series of HTML files.  This
+   content is to be convertd to org - a lightweight markup
+   language as a narrative of the experiment.
+
+#+caption:  Realization Plan for Conversion to Org
+#+name: rlz-plan-convert-to-org
+|---+-------+---------------------+-------+----------+--------+-----------+--------+--------+----------|
+|   | S.    | Tasks               | Issue | Expected | Actual | Estimated | Actual | Status | Assignee |
+|   | NO    |                     |       | Effort   | Effort | Start,    | Start/ |        |          |
+|   |       |                     |       | (in      | (in    | End       | End    |        |          |
+|   |       |                     |       | person   | person | Dates     | Dates  |        |          |
+|   |       |                     |       | hours)   | hours) |           |        |        |          |
+|---+-------+---------------------+-------+----------+--------+-----------+--------+--------+----------|
+|   | 1.    | Convert each screen | [[https://gitlab.com/vxcg/res/cse/data-structures/mergesort/issues/2][issue]] | 16       |        |           |        |        | Thirumal |
+|   |       | to an org file.     |       |          |        |           |        |        |          |
+|---+-------+---------------------+-------+----------+--------+-----------+--------+--------+----------|
+|   | 2.    |                     |       |          |        |           |        |        |          |
+|---+-------+---------------------+-------+----------+--------+-----------+--------+--------+----------|
+|   | Total |                     |       | 16       | 0      |           |        |        |          |
+| ^ |       |                     |       | est      | act    |           |        |        |          |
+|---+-------+---------------------+-------+----------+--------+-----------+--------+--------+----------|
+#+TBLFM: $est=vsum(@II+1..@-1)
+#+TBLFM: $act=vsum(@II+1..@-1)
+
+** Provide components as a service
+   Right now each page of merge sort is interspersed with
+   code snippets.  These code snippets allow creation of an
+   array, split of an array, merge of an array etc.  These
+   various operations are taken out of the current
+   experiment and provided as a service.
+#+caption:  Realization Plan for components as service
+#+name: rlz-plan-components
+|---+-------+----------------------------+-------+----------+--------+-----------+--------+--------+----------+---|
+|   | S.    | Tasks                      | Issue | Expected | Actual | Estimated | Actual | Status | Assignee |   |
+|   | NO    |                            |       | Effort   | Effort | Start,    | Start/ |        |          |   |
+|   |       |                            |       | (in      | (in    | End       | End    |        |          |   |
+|   |       |                            |       | person   | person | Dates     | Dates  |        |          |   |
+|   |       |                            |       | hours)   | hours) |           |        |        |          |   |
+|---+-------+----------------------------+-------+----------+--------+-----------+--------+--------+----------+---|
+|   | 1.    | Remove the code snippets   | [[https://gitlab.com/vxcg/res/cse/data-structures/mergesort/issues/4][issue]] | 40       |        |           |        |        | Thirumal |   |
+|   |       | and build them separately. |       |          |        |           |        |        |          |   |
+|---+-------+----------------------------+-------+----------+--------+-----------+--------+--------+----------+---|
+|   | Total |                            |       | 40       | 0      |           |        |        |          |   |
+| ^ |       |                            |       | est      | act    |           |        |        |          |   |
+|---+-------+----------------------------+-------+----------+--------+-----------+--------+--------+----------+---|
+#+TBLFM: $est=vsum(@II+1..@-1)
+#+TBLFM: $act=vsum(@II+1..@-1)
+
+** Build experiment interface
+   A narrative of an experiment written in a markup
+   language, in this case org, is built, an experiment theme
+   is applied that provides a new experiment interface.
+
+#+caption:  Realization Plan for Experiment Interface
+#+name: rlz-plan-exp-interface
+|---+-------+------------------+-------+----------+--------+-----------+--------+--------+----------+---|
+|   | S.    | Tasks            | Issue | Expected | Actual | Estimated | Actual | Status | Assignee |   |
+|   | NO    |                  |       | Effort   | Effort | Start,    | Start/ |        |          |   |
+|   |       |                  |       | (in      | (in    | End       | End    |        |          |   |
+|   |       |                  |       | person   | person | Dates     | Dates  |        |          |   |
+|   |       |                  |       | hours)   | hours) |           |        |        |          |   |
+|---+-------+------------------+-------+----------+--------+-----------+--------+--------+----------+---|
+|   | 1.    | Build a theme    | [[https://gitlab.com/vxcg/res/cse/data-structures/mergesort/issues/3][issue]] | 40       |        |           |        |        | Thirumal |   |
+|   |       | for a three pane |       |          |        |           |        |        |          |   |
+|   |       | interface.       |       |          |        |           |        |        |          |   |
+|---+-------+------------------+-------+----------+--------+-----------+--------+--------+----------+---|
+|   | Total |                  |       | 40       | 0      |           |        |        |          |   |
+| ^ |       |                  |       | est      | act    |           |        |        |          |   |
+|---+-------+------------------+-------+----------+--------+-----------+--------+--------+----------+---|
+#+TBLFM: $est=vsum(@II+1..@-1)
+#+TBLFM: $act=vsum(@II+1..@-1)
+
+** Experiment Construction
+   There is the narrative, the components as service, and
+   the new theme.  Build a mechanism to weave these three
+   things together to enable easy authoring and a consistent
+   presentation.
+#+caption:  Realization Plan for Experiment construction
+#+name: rlz-plan-exp-cons
+|---+-------+---------------------+-------+----------+--------+-----------+--------+--------+----------|
+|   | S.    | Tasks               | Issue | Expected | Actual | Estimated | Actual | Status | Assignee |
+|   | NO    |                     |       | Effort   | Effort | Start,    | Start/ |        |          |
+|   |       |                     |       | (in      | (in    | End       | End    |        |          |
+|   |       |                     |       | person   | person | Dates     | Dates  |        |          |
+|   |       |                     |       | hours)   | hours) |           |        |        |          |
+|---+-------+---------------------+-------+----------+--------+-----------+--------+--------+----------|
+|   | 1.    | Statically bind the | [[https://gitlab.com/vxcg/res/cse/data-structures/mergesort/issues/6][issue]] | 16       |        |           |        |        | Thirumal |
+|   |       | location of the     |       |          |        |           |        |        |          |
+|   |       | resources.          |       |          |        |           |        |        |          |
+|---+-------+---------------------+-------+----------+--------+-----------+--------+--------+----------|
+|   | 2.    |                     |       |          |        |           |        |        |          |
+|---+-------+---------------------+-------+----------+--------+-----------+--------+--------+----------|
+|   | Total |                     |       | 16       | 0      |           |        |        |          |
+| ^ |       |                     |       | est      | act    |           |        |        |          |
+|---+-------+---------------------+-------+----------+--------+-----------+--------+--------+----------|
+#+TBLFM: $est=vsum(@II+1..@-1)
+#+TBLFM: $act=vsum(@II+1..@-1)

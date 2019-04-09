@@ -1,0 +1,399 @@
+#+TITLE:Merge sort experiment Scene-10
+#+AUTHOR: VLEAD
+#+DATE: [2017-12-16 FRI]
+#+SETUPFILE: ../../org-templates/level-2.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil'
+
+* Introduction
+- In this page we derive the time complexity for merge using the merge diagram of mergesort.
+- We go through a series of steps deriving the complexity of merge using merge diagram of mergesort.
+
+* Code and narration
+
+** Layout HTML
+*** HTML for the experiment
+
+#+BEGIN_SRC  html :tangle /templates/scene10.html :eval no :noweb yes
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Merge Sort</title>
+    <script src="{{ url_for('static', filename='default/js/d3.v3.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/dagre-d3.js')}}"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='default/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link href="{{ url_for('static', filename='default/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='default/js/jquery.min.js')}}"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='default/css/sb-admin.css')}}" rel="stylesheet">
+    <style id="css">
+      /* This sets the color for "TK" nodes to a light blue green. */
+      #sigma-para{
+        height: 50px;
+        line-height: 50px;
+      }
+      h6
+      {
+        font-size: 18px;
+      }
+      #sigma-span{
+        position: relative;
+        font-size: 2.5em;
+        display: inline-block;
+        line-height: .7em;
+        vertical-align: middle;
+      }
+      #sigma-span:before {
+        font-size: 16px;
+        display: block;
+        position absolute;
+        left: 0;
+        top: 0;
+        content: "H";
+        width: 22px;
+        text-align: center;
+      }
+
+      #sigma-span:after {
+        font-size: 18px;
+        display: block;
+        position absolute;
+        left: 0;
+        bottom: 0;
+        content: "i=1";
+        width: 27px;
+        text-align: center;
+      }
+      g.type-TK > rect {
+        fill: #00ffd0;
+      }
+      .rotation {
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        transform: rotate(90deg);
+        position :absolute;
+        font-weight: bold;
+        left: -50px;
+        top: 62px;
+      }
+      #img-class{
+        position: relative;
+      }
+      text {
+        font-weight: 300;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+        font-size: 14px;
+      }
+      i {
+          border: solid black;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+      }
+      .left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+      }
+      .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        float:right;
+      }
+      input {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 10px 0;
+      }
+      #but1 {
+      display: inline-block;
+      vertical-align: middle;
+      }
+      #c{
+      display: inline-block;
+      margin-left: 400px;
+      }
+      #but2 {
+      display: inline-block;
+      vertical-align: middle;
+      }
+
+      .node rect {
+        stroke: #999;
+        fill: #fff;
+        stroke-width: 1.5px;
+      }
+
+      .edgePath path {
+        stroke: #333;
+        stroke-width: 1.5px;
+      }
+      div{
+        z-index:1;
+      }
+      div.bond
+      {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        z-index:3;
+        top: -10px;
+        background-color: #C8C8C8;
+      }
+      .bl{
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+
+  <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <a class="navbar-brand" href="#">DS-Lab</a>
+      <button style="background-color:#bfc9ca;margin-left:31px" class="btn btn-success" onclick="pane()">Pane</button>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <li class="nav-item active" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <a class="nav-link" href="#">
+              <span class="nav-link-text">
+                Merge-Sort
+              </span>
+            </a>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="References">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+              <span class="nav-link-text">
+                References
+              </span>
+              <i class="down"></i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseComponents">
+              <li>
+                <a href="https://en.wikipedia.org/wiki/Merge_sort">Wiki-pedia</a>
+              </li>
+              <li>
+                <a href="http://www.geeksforgeeks.org/merge-sort/">Geeks for Geeks</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+              <span class="nav-link-text">
+                Quizzes
+              </span>
+              <i class="down"></i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+              <li>
+                <a href="#">Quiz-1</a>
+              </li>
+              <li>
+                <a href="#">Quiz-2</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav sidenav-toggler">
+          <li class="nav-item">
+            <a class="nav-link text-center" id="sidenavToggler">
+              <i class="left"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <ul class="readcrumb">
+            <li >
+              <a href="#">VLEADS</a>
+            </li>
+            <li>
+                <a href="#">DS -> Merge-Sort</a>
+            </li>
+          </ul>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <div class="content-wrapper">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center">
+          <h3>
+            MergeSort Time Complexity Analysis
+          </h3>
+          <br/>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <h4 style="text-align: center">
+          Derivation of Merge Sort Time Complexity
+        </h4><br/>
+        <table width="100%">
+          <tr>
+            <td>
+              <div class="well well-lg" width="50%">      
+                  <div class="list-group" style="width:80%">
+                      <a href="#" class="list-group-item list-group-item-action list-group-item-success">
+                        <h5 style="color:black;font-weight: bold">MERGE Time Complexity</h5>
+                        <ul style="color:black">
+                          <li><h6>We know that MERGE involves combining two sorted arrays into a final sorted array.</h6></li>
+                          <li><h6>Time complexity to merge two arrays each of size 'k' is O(2*k).</h6></li>
+                          <li><h6>So to find the merge complexity we find the merge complexity for each level and do summation for all the levels.</h6></li>
+                        </ul>
+                      </a>
+                  </div><br/><br/>
+                  <div class="list-group" style="width:80%">
+                      <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                        <h5 style="color:black;font-weight: bold">MERGE Diagram</h5>
+                        <ul style="color:black;">
+                          <li><h6>In the merge diagram the value in each node indicates the number of elements in the node.</h6></li>
+                          <li><h6>Let there be H levels of merge from 1...to...H.</h6></li>
+                          <li><h6>From the diagram for a general i<sup>th</sup> level we can observe the following</h6></li>
+                          <ul style="color:black">
+                            <li><h6>The number of elements in each node is which are going to get merged is
+                                  <span style="font-size :25px">n/2<sup>i</sup></span></h6></li>
+                            <li><h6>The number of nodes in the i<sup>th</sup> level is &nbsp;
+                                  <span style="font-size: 25px">2<sup>i</sup></span></h6></li>
+                            <li><h6>The number of merges in the i<sup>th</sup> level is &nbsp;
+                                  <span style="font-size: 25px">2<sup>i - 1</sup></span></h6></li>
+                            <li><h6>The time complexity for one merge at i<sup>th</sup> level is &nbsp;
+                                  <span style="font-size: 25px">O(2.(n/2<sup>i</sup>))</span></h6></li>
+                            <li><h6>The total time complexity for merge at i<sup>th</sup> level is &nbsp;
+                                  <span style="font-size: 25px">(2<sup>i - 1</sup>)O(2.(n/2<sup>i</sup>)) = O(n)</span></h6></li>
+                            <li><h6>The total time complexity for merge at i<sup>th</sup> level is constant given by
+                                  <span style="font-size: 25px">O(n)</span>.</h6></li>
+                            <li><h6>We know that the merging arrays starts at level - H. Which means that at H<sup>th</sup> level each node contains 1 element. Therefore<br/><br/>
+                                <span style="font-size: 25px">n/2<sup>H</sup> = 1 &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span style="font-size: 25px">2<sup>H</sup> = n &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <span  style="font-size: 25px">H = log<sub>2</sub>n &nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                </h6>
+                            </li>
+                            <li>
+                              <h6>So the time complexity for merge will be
+                                <p id="sigma-para"> 
+                                  <span id="sigma-span">&Sigma;</span>
+                                  <span style="font-size :25px">
+                                    O(n) &nbsp;&nbsp;=&nbsp;&nbsp;log<sub>2</sub>n.O(n)&nbsp;&nbsp;=&nbsp;&nbsp;O(nlog<sub>2</sub>n)
+                                  </span>
+                                </p>
+                              </h6>
+                            </li>
+                          </ul>
+                          <br/>
+                          <li><h6>The complexity of merge is <span style="font-size: 25px">O(nlog<sub>2</sub>n)</span></h6></li>
+                          <li>
+                            <h6>
+                              The number of computations required would be <span style="font-size: 25px">(nlog<sub>2</sub>n)</span>
+                              <br/><br>Where '()' denotes the <b>least integer function</b>. (useful when log<sub>2</sub>n is not a<b> perfect integer</b>).
+                            </h6>
+                          </li>
+                        </ul>
+                        <br/>
+                      </a>
+                  </div>
+              </div>
+            </td>
+            <td>
+              <br/><br/>
+              <div id="img-class">
+                <img src="{{ url_for('static', filename='images/11.png')}}" alt="Time complexity graph" hspace="35"/>
+                <div style="position: absolute; left:-30px; top:0px;color:#0000FF;font-weight: bold">
+                  LEVEL 'H'
+                </div>
+                <div class="rotation">
+                  - - - - - - - - - -
+                </div>
+                <div style="position: absolute; left:-30px; top:120px;color:#0000FF;font-weight: bold">
+                  LEVEL 2
+                </div>
+                <div style="position: absolute; left:-30px; top:240px;color:#0000FF;font-weight: bold">
+                  LEVEL 1
+                </div>
+              </div>
+            </td>
+          </tr>
+        </table>
+        <br/>
+        <!-- <div class="list-group" style="width:50%">
+          <a href="#" class="list-group-item list-group-item-action list-group-item-success">
+            <h5 style="color:black;font-weight: bold">MERGE SORT Time Complexity</h5>
+            <ul style="color:black">
+              <li><h6>Hence time complexity of mergesort is summation of split and merge complexity</h6></li>
+              <li><h6>Merge sort complexity = <span style="font-size: 20px">O(n) + O(nlog<sub>2</sub>n)</span></h6></li>
+              <li><h6>So complexity of MergeSort algorithm is &nbsp; &nbsp; &nbsp; <span style="font-size: 30px;color:red">O(nlog<sub>2</sub>n)</span></h6></li>
+            </ul>
+          </a>
+        </div> -->
+        <br/>
+        <div style="text-align: center">
+          <a href='/9' class="btn btn-primary" role="button">Back</a>&nbsp;
+          <a href='/11' class="btn btn-primary" role="button">Next</a>
+        </div>
+      </div>
+      <br/>
+    </div>
+
+    <!-- /.container-fluid -->
+    <!-- /.content-wrapper -->
+    <!-- Scroll to Top Button -->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Select "Logout" below if you are ready to end your current session.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ url_for('static', filename='default/js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/popper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/bootstrap.min.js')}}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{{ url_for('static', filename='default/js/jquery.easing.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/Chart.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/jquery.dataTables.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/dataTables.bootstrap4.js')}}"></script>
+    <!-- Custom scripts for this template -->
+    <script src="{{ url_for('static', filename='default/js/sb-admin.min.js')}}"></script>
+  </body>
+
+</html>
+
+#+END_SRC

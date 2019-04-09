@@ -1,0 +1,315 @@
+#+TITLE: Meetings
+#+AUTHOR: VLEAD
+#+DATE: [2018-01-25 Thu]
+#+SETUPFILE: ../org-templates/level-1.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil
+
+* Introduction
+  This document captures the minutes from the meetings held
+  towards the realization of this project.
+
+* [2018-01-25 Thu]
+** SSS
+  1. Semantic style sheet - an ontology
+  1. Predicates on the ontology
+  2. Transformations on the selections.
+** Structure of Experiment
+   1. Navigation, Narration and Evaluation or Execution
+   2. A computation is a consistent annotation.
+   3. The propagation 
+   4. Leave the holes in the skeleton and define where and
+      how these holes will get filled
+   5. Build the components and structure the scenes using
+      these components.
+   6. Re lay the experiment as a machine and the components
+      how these are annotated or evaluated for the process.
+   7. Language's objective
+   8. Semantic Engineering - by Falaysen
+   9. Checkout project called =deepspec=.
+* [2018-02-16 Fri]
+** Agenda
+
+   Prepare a plan for the delivery of the experiment
+   integration kit.
+** Discussion
+   1. httnps://www.fstar-lang.org/tutorial/ can be a
+      starting point.
+   2. An experiment is a DAG of dependencies.
+   3. There should be free navigation but the objective
+      should be an explicit way to accomplish certain tasks
+      or interactive activities.
+   4. The whole playbook is displayed.
+   5. Navigation pane - what is achieved and what is left.
+   6. Three things to be accomplished:
+      1. Pedagogy - defines the interactive narrative
+      2. Authoring Platform that allows realization of the
+         interactive narrative.  The platform provide ways
+         to visualize and interact with the narrative.
+      3. Create the experiment content to fit the authoring
+         platform.
+   7. Tie the realization with the analytics from the
+      initial state.
+  
+** Action Items
+   1. Work on the three things parallelly, refer point 6.
+   2. Write a document how pedagogy is driving the
+      realization of mergesort.  Demonstrate the mapping
+      between pedagogy and mergesort.
+   3. Reorient the team towards the realization of the
+      platform.
+* [2018-03-02 Fri]
+  Merge Sort will be a trial balloon.  In org one can define
+  one's own tags.
+
+  - What kind of services would we envisage to pull the
+    components?
+  - Authoring, services, and how do we weave them together?
+  - Portablity - ability to replace the same component with
+    a different one from another service.
+  - 
+* [2018-03-19 Mon]
+
+** Agenda
+   Plan the experiment development. 
+** Discussion
+  - How to capture Analytics
+    1. https://scorm.com/what-is-an-lrs-learning-record-store/
+    2. https://learninglocker.net/
+    3. [[https://elearningindustry.com/introduction-tin-can-api][Tin Can API]]
+    Bayesian networks
+    Machine learning assisted human learning
+  - Pipeline of putting up an experiment :: SME, ID, GD/UX,
+       UI designers, developers
+
+  - Building the experiment :: There are these artefacts,
+       activities on these artifacts and observables of
+       these activities.
+
+  - Where do the artefacts sit :: CMS is an easy way that
+       provides an artifact store, and provides an API to
+       pull the resource.
+
+  - Analytics :: Adding the analytics hooks, define subject,
+                 object and verb.
+
+  - Widgets :: Spec out all the widgets to be built.
+
+** Action Items
+   1. Mrityunjay will talk to ID and UX designer.
+   2. Put this team together.
+   3. Calculate the costs to put this team.
+   4. Define the combined output and the individual output
+      of all these phases.
+   5. Build the merge sort for May 1st.
+   6. CMS that stores artifacts, author that writes the
+      content, a programmer who converts to a web
+      application.
+   7. Retrofit the pedagogy for the current implementation
+      of merge sort.
+   8. Retrofit the experiment for this pedagogy - VLEAD
+   9. Install CMS and LRS and see how they can be used.
+   10. Ask Maruti rao about the publishing platform. 
+
+
+* [2018-03-29 Thu] - Instructional Design
+** Discussion from a previous meeting
+  1. Inventing domain specific language.
+  2. Bring in types.  There is structure for these.  There
+     are semantic structures that will be interpreted.
+  3. An experiment is a series of instructions.
+  4. An instruction is a set of objectives.  How are these
+     objectives ordered?  Checks are made to check the
+     objectives.
+  5. There are 10 kinds of objects.  And there are actions
+     on each of these objects.  There is specific vocabulary
+     from pedagogy and also from the discipline.
+  6. DSL is not a computer executed program, but could be a
+     human executed program.  Which instruction that is
+     executed depends on the data.  There is a constant
+     input that is coming into each step that drives the
+     next step.  Computer science is study of processes.
+     Vocabulary of the subject is superimposed over the
+     vocabulary of pedagogy. 
+
+     If an experiment can be specified in wither himan
+     readable or machine readable. IS the specification
+     different from requirements.  Specification is a
+     recipe. 
+
+     How do we validate these programs?  The specification
+     of an experiment is a program and therefore how can
+     this be validated?  There is a notion of equivalence,
+     simulation or bi simulation. 
+
+     How is the the flow of information is structured?  From
+     SME to ID to UX/UI to implementation.  How to
+     industrialize this process?  Every industrial process
+     is a pipeline.   
+
+** Discussion
+   - Operations
+   - Complexity 
+   - How do we map the complexity from the operations
+   - Instruction Design
+     1. Content gaps
+     2. Story board is the blue print for the production
+        team.  A graphic designer will standardize the the
+        UI.
+   - What is neeeded by Zia?
+     1. Objective
+     2. Pre test content
+     3. Introduction
+     4. Concept
+     5. Practise after each concept
+     6. Provide two questions after each practise
+     7. A module will have concept definition, explanation,
+        practice, reflective questions.
+
+** Action Items
+   1. Zia will send an email with the details of her
+      engagement.
+
+   2. Authoring Tool kit, the output of this will will talk
+      to a router.  This is the interface to all the
+      services.
+
+   3. CMS and LRS installation and see how they can be used.
+
+   4. Instructional Design and UX person - prototype
+      developed before development starts.
+
+   5. Before May 15th - SME and Instruction Design is done
+      for 12 exp
+
+   6. Build the software architecture diagram of the
+      experiments system - MK + Thirumal and Venkatesh
+
+   7. What do the students work on ? May be components of
+      the player/canvas of the experiments is to be TBD.
+
+   8. Identify the tools that are needed Sketch ( create
+      assets) and Invision. MK to send the list
+
+   9. Get the MAC up and running with Invision, Sketch,
+      Articulate and Captivate.
+
+   10. Plan of development and work on merge sort - MK.
+
+   11. Connect with IIIT Jabalpur Design school - UI
+       designing - Venkatesh - No Web design there
+
+   12. Connect with IIT G Design school - UI designing -
+       Venkatesh -
+
+   13. Contact JNTU, BITS Pilani, Cognitive Science for MS
+       interns - Venkatesh
+
+   14. Thirumal & Team to work on Analytics worked out -
+       April 1st ( LRS ( Learning Record System ), Tincan
+       API ) - This is to be done only after the basic
+       architecture is in place.
+
+* [2018-04-04 Wed] - Instructional Design
+
+** Attendees
+   Venkatesh Choppella, Mrityunjay, Zia, Priya and Thirumal
+
+** Agenda
+
+** Discussion
+   The idea is to harness the three dimensions - including
+   the depth using the bookmarks as used in fstar.
+
+   Imagine, while reading a book, when we do not need to
+   flip pages to refer to a table or a figure but instead
+   they are present right there.
+
+   What should be bookmarked? Should each artefact be
+   bookmarked?
+   
+   There are units of information that are consumed.  Define
+   these units and also define the sequence of the
+   consumption, or the ordering of these units.  For
+   example, whether these units are ordered temporally or
+   spatially.  On a laptop, the space could be used, but may
+   be on a tab, these units might be presented temporally.
+   For visually challenged, the units could be read out. 
+
+   Developing the content as units, the relationship between
+   these units and how do we lay them out are how an
+   experiment is envisaged. 
+
+   Since an instructional designer knows better ways to
+   present the content to students, he or she designs how
+   the content is presented from that perspective, or define
+   the relation between these units.  A UX designer operates
+   at a different level to ensure the medium in this case
+   the screens of computers are effectively used to convey
+   the learning.
+
+   Instructional effectiveness, learner engagement and
+   visual appeal are the three axis of developing an
+   experiment.
+
+   The objective is to separate the structure of the content
+   from the layout of the content. 
+
+   A teacher knows how to teach a concept or a subject, the
+   pedagogy of teaching a subject.  An instructional
+   designer ensures the effectiveness of the pedagogy by
+   structuring the content. 
+
+   The challenge is to put this team together to build the
+   20 experiments.  The team structure is this: SME -> ID ->
+   UX -> Graphis Design -> UI -> Development
+
+** Action Items
+   1. Back End, start on it.
+   2. April 27th, is the presentation at Delhi, present the
+      connection between the pedagogy and the experiment.
+   3. Ensure the students build the experiments even without
+      instructional design but what comes out can still be
+      starting points for SME to start the pipeline.
+   4. Prof and MK to decide on units on an experiment.
+   5. Zia to come up with a new quote
+   6. Structure - to have units
+	  1. Landing Page - Objective
+	  2. Introduction + Pretest with score + feedback
+	  3. Module 1 ( Split )
+		 - Introduction + Defn
+		 - Example
+		 - Exercise ( replay button)
+		 - Quiz with feedback
+	  4. Module 2 ( Merge)
+		 - Introduction + Defn
+		 - Example
+		 - Exercise ( replay button)
+		 - Quiz with feedback
+	  5. Module 3 ( Merge Sort )
+		 - Introduction + Defn
+		 - Example
+		 - Exercise 1 ( replay button)
+		 - Exercise 2 ( replay button)
+		 - Quiz with feedback
+	  6. Module 4 ( Time Space )
+		 - Introduction + Defn
+		 - Example
+		 - Exercise ( replay button)
+		 - Quiz
+	  7. Post Test with score
+	  8. Key takeaways
+
+   7. Zia to share a template for Prof and Mk to fill the
+      content.
+   8. Zia will explain the bookmark feature on the landing
+      page.
+   9. Bookmark behavior to be decided by UX designer and
+      implemented by the production team.
+   10. Summer interns (10 teams - 2 per team ) to work on
+       generating raw content and experiment prototype -
+       which would be graded
+   11. Zia to work with graphical designer ( for the frame +
+       diagram artifacts) and come up with a story board
+       which can be consumed by the production team.

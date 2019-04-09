@@ -1,0 +1,667 @@
+#+TITLE:Merge sort experiment Scene-07
+#+AUTHOR: VLEAD
+#+DATE: [2017-12-12 TUE]
+#+SETUPFILE: ../../org-templates/level-2.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil'
+
+* Introduction
+
+- This page gives an interactive exercise on mergesort for the user.
+- A mergesort graph is displayed with entries to be filled.
+- The user has to fill the entries and click on the check button to check is answer.
+
+* Code and narration
+** JS
+
+-Global declaration of variables. 
+- =py=, =px=, =dx=, =dy= are used for populating the input tags.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+var div_element = document.getElementById('input-graph');
+var string = "";
+var py = 270;
+var px = 1000;
+var dx = 50;
+var dy = 100;
+#+END_SRC
+
+- =generateInputGraph()= function generates the graph for the user to do the mergesort exercise.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function generateInputGraph()
+{
+	drawGraph();
+	div_element.innerHTML = string;
+	drawEdges();
+}
+#+END_SRC
+
+- =drawGraph()= function add input tag elements to the document by invoking =addInputTags= and =addCanvasTags= function.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function drawGraph()
+{
+	addInputTags();
+	addCanvasTags();
+}
+#+END_SRC
+
+- =addInputTags= function adds the input tags at appropriate positions by invoking =addElement= function.
+- =addCanvasTags= function adds the canvas tags for edges at appropriate positions by invoking =addCanvas= function.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function addInputTags()
+{
+  var x = 886.4833374023438;
+  var y = 218.1999969482422;
+  addElement('input1', '8 7 6 5 4 3 2 1', 200, 1130-x, 240-y, 'bool1', true);
+  addElement('input2', '', 100, 1020-x, 340-y, 'bool2');
+  addElement('input3', '', 100, 1330-x, 340-y, 'bool3');
+  addElement('input4', '', 80, 940-x, 440-y, 'bool4');
+  addElement('input5', '', 80, 1110-x, 440-y, 'bool5');
+  addElement('input6', '', 80, 1260-x, 440-y, 'bool6');
+  addElement('input7', '', 80, 1420-x, 440-y, 'bool7');
+  addElement('input8', '', 40, 920-x, 540-y, 'bool8');
+  addElement('input9', '', 40, 1000-x, 540-y, 'bool9');
+  addElement('input10', '', 40, 1090-x, 540-y, 'bool10');
+  addElement('input11', '', 40, 1170-x, 540-y, 'bool11');
+  addElement('input12', '', 40, 1240-x, 540-y, 'bool12');
+  addElement('input13', '', 40, 1320-x, 540-y, 'bool13');
+  addElement('input14', '', 40, 1400-x, 540-y, 'bool14');
+  addElement('input15', '', 40, 1480-x, 540-y, 'bool15');
+  addElement('input16', '', 80, 940-x, 640-y, 'bool16');
+  addElement('input17', '', 80, 1100-x, 640-y, 'bool17');
+  addElement('input18', '', 80, 1260-x, 640-y, 'bool18');
+  addElement('input19', '', 80, 1420-x, 640-y, 'bool19');
+  addElement('input20', '', 100, 1020-x, 740-y, 'bool20');
+  addElement('input21', '', 100, 1330-x, 740-y, 'bool21');
+addElement('input22', '', 200, 1130-x, 840-y, 'bool22');
+}
+function addCanvasTags()
+{
+  var x = 886.4833374023438;
+  var y = 218.1999969482422;
+  addCanvas('canvas1', 1020-x, 284-y, 66, 410);
+  addCanvas('canvas2', 940-x, 384-y, 66, 250);
+  addCanvas('canvas3', 1260-x, 384-y, 66, 250);
+  addCanvas('canvas4', 920-x, 484-y, 66, 120);
+  addCanvas('canvas5', 1090-x, 484-y, 66, 120);
+  addCanvas('canvas6', 1240-x, 484-y, 66, 120);
+  addCanvas('canvas7', 1400-x, 484-y, 66, 120);
+  addCanvas('canvas16', 920-x, 584-y, 66, 120);
+  addCanvas('canvas17', 1090-x, 584-y, 66, 120);
+  addCanvas('canvas18', 1240-x, 584-y, 66, 120);
+  addCanvas('canvas19', 1400-x, 584-y, 66, 120);
+  addCanvas('canvas20', 940-x, 684-y, 66, 250);
+  addCanvas('canvas21', 1260-x, 684-y, 66, 250);
+  addCanvas('canvas22', 1020-x, 784-y, 66, 410);
+}
+#+END_SRC
+
+- =addElement= function adds an input tag along with a div tag to the document.
+- The various parameters of =addElement= can be described as follows.
+- =id= indicates the id of the input tag.
+- =val= indicates the value in the input tag.
+- =px= =py= =width= describes the position for the input and div tags.
+- =div_id= indicates the id of the div tag.
+- =disable= indicates whether to disable the input tag or not.
+- Similarly =addCanvas= takes the following parameters.
+  - =id= indicates the id of the canvas tag.
+  - =px= =py= =height= =width= describe the position of the canvas tag.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function addElement(id, val, width, px, py, div_id, disable=false)
+{
+	if(disable == false)
+	{
+		var div_width = 20;
+		var pos_left = px + width;
+		string += '<input id="' + id + '" style="position:absolute;text-align:center;width:'
+					+ width + 'px;' + 'left:' + px.toString()
+				 	+ 'px;' + 'top:' + py.toString() + 'px;" value="' + val + '">';
+		string += '<div id="' + div_id + '" style="position:absolute;text-align:center;width:'
+					+ div_width.toString() + 'px;' + 'left:' + pos_left.toString() + 'px;top:' + py.toString() + 'px;"></div>';
+	}
+	else
+	{
+		string += '<input id="' + id + '" style="position:absolute;text-align:center;width:'
+				    + width + 'px;' + 'left:' + px.toString()
+				 	+ 'px;' + 'top:' + py.toString() + 'px;" value="' + val + '" disabled>';
+	}
+	return;
+}
+function addCanvas(id, px, py, height, width)
+{
+	string += '<canvas id="' + id + '" width="' + width.toString() + '" height="' + height.toString()
+			   +'" style="position:absolute;left:' + px.toString() + 'px;' + 'top:' + py.toString()
+			   + 'px;' + '"></canvas>';
+	return;
+}
+#+END_SRC
+
+- =checkAnswer= function checks whether the answer filled by the user is correct or not and calls the appropriate functions.
+- =mark_correct= function is invoked when the entry in the box is correct.
+- =mark_incorrect= function is invoked when the entry in the box is incorrect.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function checkAnswer()
+{
+	var iscorrect = true;
+	var ans_array = [
+						["8", "7", "6", "5"],
+						["4", "3", "2", "1"],
+						["8", "7"], ["6", "5"],
+						["4", "3"], ["2", "1"],
+						["8"], ["7"], ["6"],
+						["5"], ["4"], ["3"],
+						["2"], ["1"], ["7", "8"],
+						["5", "6"], ["3", "4"],
+						["1", "2"],
+						["5", "6", "7", "8"],
+						["1", "2", "3", "4"],
+						["1", "2", "3", "4", "5",
+						 "6", "7", "8"]
+					];
+	var input_ids = [];
+	for(var i = 2; i <= 22; i++)
+	{
+		var id = 'input' + i.toString();
+		input_ids.push(document.getElementById(id));
+	}
+	console.log(input_ids);
+	for(var i = 0; i < 21; i++)
+	{
+		var array = fetchInput(input_ids[i]);
+		console.log(array, i + 1);
+		if(checkEqual(array, ans_array[i]))
+		{
+			mark_correct(i + 2);
+		}
+		else
+		{
+			iscorrect = false;
+			mark_incorrect(i + 2);
+		}
+	}
+	if(iscorrect == false)
+	{
+		mark_final_incorrect();
+	}
+	if(iscorrect == true)
+	{
+		mark_final_correct();
+	}
+	return;
+}
+#+END_SRC
+
+- =fetchInput= function takes the element and fetches the data from the element.
+- It returns the array of elements entered by the user.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function fetchInput(element)
+{
+	var array = element.value;
+	array = array.trim().split(" ");
+	return array;
+}
+#+END_SRC
+
+- function =checkEqual= checks whether two arrays are equal or not and returns the a boolean.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function checkEqual(array1, array2)
+{
+	if(array1.length != array2.length)
+	{
+		return false;
+	}
+	for(var i = 0; i < array1.length; i++)
+	{
+		if(array1[i] != array2[i])
+		{
+			return false;
+		}
+	}
+	return true;
+}
+#+END_SRC
+
+- =mark_correct= and =mark_incorrect= functions populates the div tags with a tick or a cross mark based on whether the box holds the correct answer or not.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function mark_correct(idno)
+{
+	var id = 'bool' + idno.toString();
+	console.log(id);
+	var div_element = document.getElementById(id);
+	div_element.style.color = 'green';
+	var element = "";
+	element += "<h4>&#10003;</h4>";
+	div_element.innerHTML = element;
+	return;
+}
+function mark_incorrect(idno)
+{
+	var id = 'bool' + idno.toString();
+	console.log(id);
+	var div_element = document.getElementById(id);
+	div_element.style.color = 'red';
+	var element = "";
+	element += "<h4>&#10007;</h4>";
+	div_element.innerHTML = element;
+	return;
+}
+#+END_SRC
+
+- =mark_final_incorrect= and =mark_final_correct= is called when the answer is wrong and correct respectively.
+- =mark_final_correct= populates the document with 'next' button so that user can proceed to the next task once he has completed the mergesort exercise.
+- =mark_final_incorrect= populates the document with 'try again' button so that user can try the mergesort exercise again.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function mark_final_incorrect()
+{
+	var div_element = document.getElementById('final_ans');
+	div_element.innerHTML = '<li class="list-group-item list-group-item-warning">' +
+							'Sorry your answer is gone. Please try again!'
+							 + '</li><br/>';
+	div_element.innerHTML += '<button type="button" class="btn btn-success btn-lg" onclick="reset_graph()" style="position:absolute;left:30%">'
+                			 + 'Try again!'
+              				 + '</button>';
+
+}
+function mark_final_correct()
+{
+	var div_element = document.getElementById('final_ans');
+	div_element.innerHTML = '<li class="list-group-item list-group-item-success">' +
+							'Wonderful Job! You have learned MergeSort!!!!'
+							 + '</li><br/>';
+	div_element.innerHTML += '<a href="/8" class="btn btn-success btn-lg" style="display:inline;position:absolute;left:33%;">'
+							 + 'Next' +
+							 '</a>';
+}
+#+END_SRC
+
+- =drawEdges= function invokes the =drawEdge= function by passing required parameters for drawing an edge.
+- =drawEdge= function draws the edge at co-ordinates (x0, y0) to (x, y).
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function drawEdges()
+{
+	canvasarray = [];
+	for(var i = 1; i <= 7; i++)
+	{
+		canvasarray.push(document.getElementById('canvas' + i.toString()));
+	}
+	console.log(canvasarray);
+	drawEdge(canvasarray[0], 205, 0, 50, 66);
+	drawEdge(canvasarray[0], 205, 0, 360, 66);
+	drawEdge(canvasarray[1], 125, 0, 40, 66);
+	drawEdge(canvasarray[1], 125, 0, 210, 66);
+	drawEdge(canvasarray[2], 125, 0, 40, 66);
+	drawEdge(canvasarray[2], 125, 0, 210, 66);
+	drawEdge(canvasarray[3], 60, 0, 20, 66);
+	drawEdge(canvasarray[3], 60, 0, 100, 66);
+	drawEdge(canvasarray[4], 60, 0, 20, 66);
+	drawEdge(canvasarray[4], 60, 0, 100, 66);
+	drawEdge(canvasarray[5], 60, 0, 20, 66);
+	drawEdge(canvasarray[5], 60, 0, 100, 66);
+	drawEdge(canvasarray[6], 60, 0, 20, 66);
+	drawEdge(canvasarray[6], 60, 0, 100, 66);
+	canvasarray = [];
+	for(var i = 16; i <= 22; i++)
+	{
+		canvasarray.push(document.getElementById('canvas' + i.toString()));
+	}
+	drawEdge(canvasarray[0], 20, 0, 60, 66);
+	drawEdge(canvasarray[0], 100, 0, 60, 66);
+	drawEdge(canvasarray[1], 20, 0, 60, 66);
+	drawEdge(canvasarray[1], 100, 0, 60, 66);
+	drawEdge(canvasarray[2], 20, 0, 60, 66);
+	drawEdge(canvasarray[2], 100, 0, 60, 66);
+	drawEdge(canvasarray[3], 20, 0, 60, 66);
+	drawEdge(canvasarray[3], 100, 0, 60, 66);
+	drawEdge(canvasarray[4], 40, 0, 125, 66);
+	drawEdge(canvasarray[4], 210, 0,125, 66);
+	drawEdge(canvasarray[5], 40, 0, 125, 66);
+	drawEdge(canvasarray[5], 210, 0,125, 66);
+	drawEdge(canvasarray[6], 50, 0, 205, 66);
+	drawEdge(canvasarray[6], 360, 0,205, 66);
+}
+function drawEdge(canvas, x0, y0, x, y)
+{
+	var ctx = canvas.getContext("2d");
+	ctx.beginPath();
+	ctx.moveTo(x0, y0);
+	ctx.lineTo(x, y);
+	ctx.stroke();
+	return;
+}
+#+END_SRC
+
+- =reset_graph()= function repopulates the mergesort exercise for the user.
+- It is invoked when the 'Try again' button is clicked.
+
+#+BEGIN_SRC  javascript :tangle /static/js/mergesort_exercise.js :eval no :noweb yes
+function reset_graph()
+{
+	var div_element = document.getElementById('final_ans');
+	div_element.innerHTML = "";
+	for(var i = 2; i <= 22; i++)
+	{
+		var input_element = document.getElementById('input' + i.toString());
+		var div_element = document.getElementById('bool' + i.toString());
+		input_element.value = "";
+		div_element.innerText = "";
+		div_element.innerHTML = "";
+	}
+	return;
+}
+#+END_SRC
+
+** Layout HTML
+*** HTML for the experiment
+
+#+BEGIN_SRC  html :tangle /templates/scene07.html :eval no :noweb yes
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Merge Sort</title>
+    <script src="{{ url_for('static', filename='default/js/d3.v3.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/dagre-d3.js')}}"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='default/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link href="{{ url_for('static', filename='default/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='default/js/jquery.min.js')}}"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='default/css/sb-admin.css')}}" rel="stylesheet">
+    <style id="css">
+       .text-circle {
+          background-image: linear-gradient(bottom, #F3E96B 50%, #F28A30 50%);
+          background-image: -o-linear-gradient(bottom, #F3E96B 50%, #F28A30 50%);
+          background-image: -moz-linear-gradient(bottom, #F3E96B 50%, #F28A30 50%);
+          background-image: -webkit-linear-gradient(bottom, #F3E96B 50%, #F28A30 50%);
+          background-image: -ms-linear-gradient(bottom, #F3E96B 50%, #F28A30 50%);
+          position: relative;
+          width: 700px;
+          height: 700px;
+          border-radius: 60%;
+      }
+      /* This sets the color for "TK" nodes to a light blue green. */
+      g.type-TK > rect {
+        fill: #00ffd0;
+      }
+
+      text {
+        font-weight: 300;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+        font-size: 14px;
+      }
+      i {
+          border: solid black;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+      }
+      .left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+      }
+      .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        float:right;
+      }
+      input {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 10px 0;
+      }
+      #but1 {
+      display: inline-block;
+      vertical-align: middle;
+      }
+      #c{
+      display: inline-block;
+      margin-left: 400px;
+      }
+      #but2 {
+      display: inline-block;
+      vertical-align: middle;
+      }
+
+      .node rect {
+        stroke: #999;
+        fill: #fff;
+        stroke-width: 1.5px;
+      }
+
+      .edgePath path {
+        stroke: #333;
+        stroke-width: 1.5px;
+      }
+      div{
+        z-index:1;
+      }
+      div.bond
+      {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        z-index:3;
+        top: -10px;
+        background-color: #C8C8C8;
+      }
+      .bl{
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+
+  <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <a class="navbar-brand" href="#">DS-Lab</a>
+      <button style="background-color:#bfc9ca;margin-left:31px" class="btn btn-success" onclick="pane()">Pane</button>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <li class="nav-item active" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <a class="nav-link" href="#">
+              <span class="nav-link-text">
+                Merge-Sort
+              </span>
+            </a>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="References">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+              <span class="nav-link-text">
+                References
+              </span>
+              <i class="down"></i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseComponents">
+              <li>
+                <a href="https://en.wikipedia.org/wiki/Merge_sort">Wiki-pedia</a>
+              </li>
+              <li>
+                <a href="http://www.geeksforgeeks.org/merge-sort/">Geeks for Geeks</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+            <span class="nav-link-text">
+                Quizzes
+            </span>
+            <i class="down"></i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+              <li>
+                <a href="#">Quiz-1</a>
+              </li>
+              <li>
+                <a href="#">Quiz-2</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav sidenav-toggler">
+          <li class="nav-item">
+            <a class="nav-link text-center" id="sidenavToggler">
+              <i class="left"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <ul class="readcrumb">
+            <li >
+              <a href="#">VLEADS</a>
+            </li>
+            <li>
+              <a href="#">DS -> Merge-Sort</a>
+            </li>
+          </ul>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="content-wrapper">
+      <div class="panel panel-default">
+        <div class="panel-heading" style="text-align: center">
+          <h3>
+            MergeSort Exercise
+          </h3>
+          <br/><br/><br/>
+        </div>
+      </div>
+      <div class="container-fluid">
+        <h4>
+          Regarding this exercise.
+        </h4>
+        <table width="100%">
+          <tr>
+            <td>
+              <div class="well well-lg" width="50%">
+                <div class="list-group" style="width:80%">
+                  <a href="#" class="list-group-item list-group-item-action  list-group-item-info">
+                    <h5>You will be given an array.</h5>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action list-group-item-success">
+                    <h5>Draw the entire mergesort graph for sorting the array.</h5>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action list-group-item-warning">
+                    <h5>Refer to previous slides for reference.</h5>
+                  </a>
+                  <a href="#" class="list-group-item list-group-item-action list-group-item-success">
+                    <h5>Click on the Check button to check your answer.</h5>
+                  </a>
+                </div>
+              </div>
+              <br/><br/><br/>
+              <a href='/6' class="btn btn-success btn-lg" style="display:inline;position:absolute;left:15%;">
+                 Back
+              </a>
+            </td>
+            <td>
+              <div class="text-circle">
+                <div id="input-graph" style="text-align: center">
+                </div>
+                <div style="position:absolute;left:303px;top:122px;font-family:sans-serif;font-size: 25px;z-index: 10">
+                SPLIT
+              </div>
+              <div style="position:absolute;left:303px;top:522px;font-family:sans-serif;font-size: 25px;z-index: 10">
+                MERGE
+              </div>
+              </div>
+              <div id="final_ans" style="position:absolute; left:1530px;top:500px;text-align: center">
+              </div>
+              <br/><br/><br/><br/>
+            </td>
+          </tr>
+        </table>
+        <button type="button" style="position:absolute;left:1550px;top:230px;"
+                class="btn btn-success btn-lg" onclick="checkAnswer()">
+               Check!
+        </button>;
+        <br/><br/><br/><br/>
+
+        <!-- script part -->
+        <script src="../static/js/mergesort_exercise.js">
+        </script>
+        <script type="text/javascript">
+          generateInputGraph();
+        </script>
+        <!-- script part ends -->
+
+      </div>
+    </div>
+
+    <!-- /.container-fluid -->
+    <!-- /.content-wrapper -->
+    <!-- Scroll to Top Button -->
+
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Select "Logout" below if you are ready to end your current session.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ url_for('static', filename='default/js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/popper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/bootstrap.min.js')}}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{{ url_for('static', filename='default/js/jquery.easing.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/Chart.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/jquery.dataTables.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/dataTables.bootstrap4.js')}}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{{ url_for('static', filename='default/js/sb-admin.min.js')}}"></script>
+  </body>
+
+</html>
+
+#+END_SRC

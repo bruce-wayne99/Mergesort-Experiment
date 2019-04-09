@@ -1,0 +1,55 @@
+#+TITLE: RUNTIME
+#+AUTHOR: VLEAD
+#+DATE: [2017-12-04 MON]
+#+SETUPFILE: ../org-templates/level-1.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil'
+
+* Web:
+** Layouts
+*** 1st Layout:
+   - Introduction and discussion of steps involved in MergeSort algorithm.
+   - The next Layouts focus on explaination of subparts of Mergesort algorithm. 
+*** 2nd Layout:
+   - Explaination of split of Mergesort algorithm.
+*** 3rd Layout:
+   - An interactive exercise on split of MergeSort algorithm.
+*** 4th Layout:
+   - This Layout explains the merge (subpart of MergeSort).
+*** 5th Layout:
+   - The fifth Layout provides an interactive exercise on merge.
+*** 6th Layout:
+   - The sixth Layout demonstrates the basic mergesort by asking the user to give an input array.
+   - When the user enters an array and clicks on the 'sort' button, then mergesort graph is displayed.
+*** 7th Layout:
+   - The seventh Layout provides an interactive exercise for mergesort algorithm.
+   - It allows the user to move to the next slide only if has completed correctly the exercise.
+   - The user will be provided a check button to check his answer.
+   - The check informs the user whether is answer is correct or not.
+*** 8th Layout:
+   - Derive and explain the time complexity equation for mergesort algorithm.
+*** 9th Layout:
+   - Derive the time complexity for split subpart of mergesort algorithm.
+   - Calculate the order of computation of split for a general array of size 'n'.
+*** 10th Layout:
+   - Derive the time complexity for merge subpart of mergesort algorithm.
+   - Calculate the order of computation of merge for a general array of size 'n'.
+*** 11th Layout:
+   - Derive the order of time complexity of mergesort algorithm.
+   - In this Layout time complexity of mergesort algorithm is derived by using the time complexity of split and merge subparts.
+*** 12th Layout:
+   - Calculate the time required for computation of mergesort time for some array.
+   - Prove that the calculated value using formula and the computed value using the mergesort graph are the same.
+*** 13th Layout:
+   - Plot the graph of complexity of mergesort against 'n'.
+   - Explain the variation of mergesort complexity with no of elements.
+*** 14th Layout:
+   - Plot of various sorting algorithms in one graph.
+   - Explain why mergesort is more efficient than other sorting algorithms.
+
+* Images:
+ - All the images required for the mergesort tutorial for present in the =images= folder.
+
+* Node Modules 
+ - Contains all the required packages of =d3.js=, =graphlib=, =dagre=, =dagre-d3= etc. 

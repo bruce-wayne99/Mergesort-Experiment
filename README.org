@@ -1,0 +1,52 @@
+#+TITLE: README
+#+AUTHOR: VLEAD
+#+DATE: [2017-12-04 MON]
+#+SETUPFILE: org-templates/level-1.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil'
+
+* Verify that prerequisites are installed
+- npm
+
+- python2.7
+
+* Build the code
+ - To build the code and docs run =make labtheme=true= in the mergesort folder.
+
+* Build the virtual env
+** Run virtualenv
+ - run =virtualenv venv=
+
+** Activate virtual env
+ - run =source venv/bin/activate=
+
+
+** Install =flask=
+
+ - run =pip install flask=
+
+* Run the server
+- After building the code go to =build/code/runtime/web/=
+- To start the server run =python server.py= in terminal.
+- Go to localhost:5000 in firefox.
+
+* Serve the documentation pages from a server
+
+- Go to =build/docs= and run =python -m SimpleHTTPServer=
+- Go to localhost:8000 in firefox.
+
+* Browse the files present
+  #+BEGIN_EXAMPLE
+    mergesort/
+    |--- README.org
+    |--- src
+         |--- index.org
+         |--- requirements
+         |--- index.org
+         |--- runtime
+              |--- index.org
+  #+END_EXAMPLE
+- Inside the src folder under runtime directory all the code is present in org mode.
+- Requirements for the experiment can be found in requirements subfolder.
+- Plan made for the experiment can be found in plan subfolder.

@@ -1,0 +1,116 @@
+#+TITLE: Plan for Merge sort experiment
+#+AUTHOR: VLEAD
+#+DATE: [2016-07-1 Sat]
+#+PROPERTY: results output
+#+PROPERTY: exports code
+#+SETUPFILE: ../org-templates/level-1.org
+#+options: ^:nil
+#+LATEX: Literal LaTeX code for export
+
+* Merge sort experiment 3
+- In the 3rd version we will use dagre-d3.js a library based
+  on d3 itself.
+- The tree would be generated using dagre.
+- The split nodes will be generated using the binary logic
+  of having children of index i as 2*i+1 and 2*i+2.
+- After everything is splitted then merging will begin.
+- Merge function will be modified to accomodate formation of
+  nodes.
+- All the ID's will be mapped so as to obtain the data each
+  node represents anytime.
+- Then merging of nodes would be done.
+- No definite logic is there so would go for hard coding
+  i.e. brute force for merge.
+- Will look for logic for merging as time passes by.
+
+* Problems faced while implementing
+- Problem in generating splits on button clicks.
+  - This can be done using the row numbers as the nodes are
+    marked using binary logic.
+  - Just use the row number and generate all the nodes that
+    can be there in this row and see if they exist using the
+    visited array.
+  - Draw edges accordingly.
+  - But use the graph as a local variable then as the global
+    cannot be altered again and again - solution: a reset
+    function for resetting all the local variables.
+  - No definite logic for merging was found so had to hard
+    code i.e. use brute force for merge.
+
+* Winter Intern
+** Objectives
+*** Objective1: 
+   - Make a tutorial of MergeSort experiment with
+     interactive exercises for the users etc.
+*** Objective2: 
+   - Add detail explaination of time complexity of MergeSort
+     algorithm to the tutorial.
+** Plan:
+*** Plan for Objective1:
+   - Using routes to display the templates.
+   - The tutorial for mergesort involves 7 templates.
+**** 1st template:
+    - Introduction and discussion of steps involved in
+      MergeSort algorithm.
+    - The next templates focus on explaination of subparts
+      of Mergesort algorithm.
+**** 2nd template:
+    - Explaination of split of Mergesort algorithm.
+**** 3rd template:
+    - An interactive exercise on split of MergeSort
+      algorithm.
+**** 4th template:
+    - This template explains the merge (subpart of
+      MergeSort).
+**** 5th template:
+    - The fifth template provides an interactive exercise on
+      merge.
+**** 6th template:
+    - The sixth template demonstrates the basic mergesort by
+      asking the user to give an input array.
+    - When the user enters an array and clicks on the 'sort'
+      button, then mergesort graph is displayed.
+**** 7th template:
+    - The seventh template provides an interactive exercise
+      for mergesort algorithm.
+    - It allows the user to move to the next slide only if
+      has completed correctly the exercise.
+    - The user will be provided a check button to check his
+      answer.
+    - The check informs the user whether is answer is
+      correct or not.
+*** Plan for Objective2:
+   - The time complexity demonstration involves 7 templates.
+**** 8th template:
+    - Derive and explain the time complexity equation for
+      mergesort algorithm.
+**** 9th template:
+    - Derive the time complexity for split subpart of
+      mergesort algorithm.
+    - Calculate the order of computation of split for a
+      general array of size 'n'.
+**** 10th template:
+    - Derive the time complexity for merge subpart of
+      mergesort algorithm.
+    - Calculate the order of computation of merge for a
+      general array of size 'n'.
+**** 11th template:
+    - Derive the order of time complexity of mergesort
+      algorithm.
+    - In this template time complexity of mergesort
+      algorithm is derived by using the time complexity of
+      split and merge subparts.
+**** 12th template:
+    - Calculate the time required for computation of
+      mergesort time for some array.
+    - Prove that the calculated value using formula and the
+      computed value using the mergesort graph are the same.
+**** 13th template:
+    - Plot the graph of complexity of mergesort against 'n'.
+    - Explain the variation of mergesort complexity with no
+      of elements.
+**** 14th template:
+    - Plot of various sorting algorithms in one graph.
+    - Explain why mergesort is more efficient than other
+      sorting algorithms.
+      

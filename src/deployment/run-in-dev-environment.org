@@ -1,0 +1,35 @@
+#+TITLE: Deployment in user environment
+#+AUTHOR: VLEAD
+#+DATE: [2018-02-16 Fri]
+#+SETUPFILE: ./org-templates/level-0.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil
+
+* Set up virtual env. 
+  Be at the root directory of this repo that is at
+  mergesort.  If virtualenv is not present install it by
+  running command =pip install virtualenv=.
+
+  #+BEGIN_EXAMPLE
+  virtualenv venv
+  #+END_EXAMPLE
+
+* Activate the venv environment
+  #+BEGIN_EXAMPLE
+  source venv/bin/activate
+  #+END_EXAMPLE
+
+* Install application python dependencies.
+  #+BEGIN_EXAMPLE
+  pip install Flask
+  #+END_EXAMPLE
+
+* Run the application
+  #+BEGIN_EXAMPLE
+  cd build/code/runtime/web
+  python server.py
+  #+END_EXAMPLE
+
+* Access the application
+  Go to a browser and open the url =http://localhost:5000=.

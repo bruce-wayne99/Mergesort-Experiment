@@ -1,0 +1,20 @@
+#+TITLE: Index to the 
+#+AUTHOR: VLEAD
+#+DATE: [2018-02-19 Mon]
+#+SETUPFILE: ./org-templates/level-0.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil
+
+* Introduction
+  This document is provides a road map to the realization of
+  merge sort. 
+
+* 2017 Monsoon SSAD
+  The realization started as part of 2017 monsoon SSAD
+  project.  Refer the [[./ssad-2017-monsoon-plan.org][plan]].
+
+* Experiment as a narrative
+  The [[./exp-as-narrative.org][plan]] for realization of the authoring platform to
+  support experiment narration.
+  

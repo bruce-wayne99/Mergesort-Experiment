@@ -1,0 +1,31 @@
+#+TITLE: Design of the platform that allows construction of an experiment
+#+AUTHOR: VLEAD
+#+DATE: [2018-03-06 Tue]
+#+SETUPFILE: ./org-templates/level-0.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil
+
+* Introduction
+  This document provides a high level design for the
+  evolution of a platform that allows stitching of an
+  experiment in light weight markup languages - org and
+  markdown.
+
+* Building blocks of an experiment authoring platform
+  The fundamental requirement of an author is to ensure an
+  experiment follows a certain pattern of pedagogical
+  principles.  To ensure an author does not sidestep from
+  this endeavor, experiment construction is not viewed as a
+  monolithic structure but as stitching together a narrative
+  of text and software components that is presented to the
+  user.  Therefore, 1. the ability to
+  narrate, 2. availability of software components,
+  and 3. presentation, form the primary building blocks of
+  an experiment authoring platform.
+
+* Narrative
+  The authoring platform
+* Components as Service
+
+* Presentation

@@ -1,0 +1,511 @@
+#+TITLE:Merge sort experiment Scene-06
+#+AUTHOR: VLEAD
+#+DATE: [2017-12-11 MON]
+#+SETUPFILE: ../../org-templates/level-2.org
+#+TAGS: boilerplate(b)
+#+EXCLUDE_TAGS: boilerplate
+#+OPTIONS: ^:nil'
+
+* Introduction
+- This experiment demonstrates the merge sort algorithm with nodes and edges.
+- In this experiment we show a recursive mergesort graph of an array the user is prompted to enter.
+- We can click on the nodes of the mergesort graph which displays the recursive steps of mergesort algorithm.
+
+
+
+* Code and narration
+** JS
+
+- Global declaration of variables. 
+- Node stores id of each node and corresponding string in the form of a dictionary.
+- Mark stores whether a node is opened or not.
+
+#+BEGIN_SRC  javascript :tangle /static/js/merge.js :eval no :noweb yes
+var node={};
+var vert=[];
+var mark=[];
+#+END_SRC
+
+- =pane= function which handles the opening and closing of the top pane.
+
+#+BEGIN_SRC  javascript :tangle /static/js/merge.js :eval no :noweb yes
+// pane function for hiding or displaying the pane
+var pane = function()
+{
+	var x = document.getElementsByClassName('bond');
+	// it checks if the pane is hidden , and shows it if its hidden
+	if(x[0].style.display == "none")
+	{
+	 	 x[0].style.display = "block";
+	}
+	// it hides the displayed pane on clicking the pane button
+	else
+	{
+		x[0].style.display = "none";
+	}
+};
+#+END_SRC
+
+- =sort= function to call different functions in this file.
+- It calls the =reset2= function to intialise the variables before sorting.
+- Takes the input and handles the array accordingly.
+- Calls the subsequent main function to generate the tree.
+
+#+BEGIN_SRC  javascript :tangle /static/js/merge.js :eval no :noweb yes
+function sort()
+{
+  reset2();
+	var array=document.getElementById('arr').value;
+	var arr=array.split(" ");
+  array = array.trim();
+	console.log(array);
+	merge(array,1);
+	mark[1]=1;
+	drawGraph();
+}
+#+END_SRC
+
+- Every time a node is clicked and is not opened.
+- It generates the top node with id as i and bottom node with id as -i and in the bottom node the array is sorted.
+- This add the nodes to the node array that we will use after in the draw to generate the final graph.
+
+#+BEGIN_SRC  javascript :tangle /static/js/merge.js :eval no :noweb yes
+function merge(arr,i)
+{
+	if(arr.length>=1)
+	{
+		vert.push(arr);
+		node[i]=arr;
+		mark[i]=1;
+		var tp1=arr.split(' ');
+		console.log(tp1);
+		tp1.sort();
+		var tp2=tp1.join(" ");
+		console.log(tp2);
+		node[-i]=tp2;
+		vert.push(tp2);
+	}
+}
+#+END_SRC
+
+- Main function which handles the drawing of the graph.
+- This would use the two node array to get the nodes and
+  then use the mark to see which edges to add or not according to whether the node is opened or not.
+
+#+BEGIN_SRC  javascript :tangle /static/js/merge.js :eval no :noweb yes
+function drawGraph()
+{
+	for (v in node)
+	{
+		g.setNode(v,{ label: node[v],class: "type-TOP" });
+	}
+
+
+	for (v in node)
+	{
+		if(v>0)
+		{
+			if(mark[v]==0) // that means no edge from i to -i instead from i to 2*i and 2*i+1
+			{
+				g.setEdge(v,2*v,{label:"Split"});
+        g.setEdge(v,2*v+1,{label:"Split"});
+			}
+			else //that means edge from i to -i
+			{
+        g.setEdge(v,-v,{label:"MS"});
+			}
+		}
+		else
+		{
+			var dest=Math.floor(v/-2);
+			console.log(v,dest);
+			if(dest>0)
+			{
+        g.setEdge(v,-dest,{label:"Merge"});
+			}
+		}
+	}
+	draw();
+
+}
+#+END_SRC
+
+- Dagre components.Graph definitions and routine function call to draw the graph.
+- In this function to every node we have attached onclick handlers to each node and defined the function which will handle opening and closing.
+
+#+BEGIN_SRC  javascript :tangle /static/js/merge.js :eval no :noweb yes
+var g = new dagreD3.graphlib.Graph()
+.setGraph({})
+.setDefaultEdgeLabel(function() { return {}; });
+function draw()
+{
+	g.nodes().forEach(function(v)
+	{
+		 var node = g.node(v);
+	  	// Round the corners of the nodes
+	  	node.rx = node.ry = 5;
+	})
+
+	// Create the renderer
+	var render = new dagreD3.render();
+
+	// Set up an SVG group so that we can translate the final graph.
+	var svg = d3.select("svg"),
+	svgGroup = svg.append("g");
+
+	// Run the renderer. This is what draws the final graph.
+	render(d3.select("svg g"), g);
+#+END_SRC
+
+- Main onclick handler which handles opening and closing of the nodes.
+- If mark[v]==1 that implies node is not opened.
+- To open this node break the string into two parts and call the merge function with appropriate Ids which will add these nodes to the Node dictionary.
+- If mark[v]==0 that means we are clicking on the node to close it.
+- If any of its children is open we are not closing the node.
+- If both the childrens are closed then we delete them from node array.
+- After making the changes we call the reset function and drargraph which redraws the entire graph.
+
+#+BEGIN_SRC  javascript :tangle /static/js/merge.js :eval no :noweb yes
+	d3.select("svg g").selectAll("g.node")
+	.on("click", function(id)
+	{
+		if(id>0)
+		{
+			if(mark[id]==1) //node is not opened
+			{
+				var _node = g.node(id);
+				mark[id]=0;
+				console.log(id,_node);
+				var array=_node.label;
+				console.log(array);
+				var mid=Math.floor(array.length/2);
+				var tp1=array.substr(0,mid);
+				var tp2=array.substr(mid,array.length-mid);
+				merge(tp1,2*id);
+				merge(tp2,2*id+1);
+			}
+			else if(mark[id]==0)
+			{
+				if(mark[2*id]==1 && mark[2*id+1]==1)
+				{
+					var _node = g.node(id);
+					mark[id]=1;
+					console.log(node);
+					delete node[2*id];
+					delete node[-(2*id)];
+					delete node[2*id+1];
+					delete node[-(2*id+1)];
+				}
+
+			}
+			reset();
+			drawGraph();
+		}
+	});
+
+	// Center the graph
+	var xCenterOffset = (svg.attr("width") - g.graph().width) / 2;
+	svgGroup.attr("transform", "translate(" + xCenterOffset + ", 20)");
+	svg.attr("height", g.graph().height + 40);
+
+}
+#+END_SRC
+
+- Reset function which handles the resetting of the graph. 
+- One reset handles the resetting of graph when nodes are clicked.
+- Other handles the resetting when the reset button is clicked.
+- =reset2= function is called before sort is called to intialise all the global variables.
+
+#+BEGIN_SRC  javascript :tangle /static/js/merge.js :eval no :noweb yes
+function reset()
+{
+	g = null
+	g = new dagreD3.graphlib.Graph()
+	.setGraph({})
+	.setDefaultEdgeLabel(function() { return {}; });
+
+}
+
+function reset1()
+{
+	g = null
+	g = new dagreD3.graphlib.Graph()
+	.setGraph({})
+	.setDefaultEdgeLabel(function() { return {}; });
+	node={};
+	vert=[];
+	mark=[];
+	render = null
+	svg = null
+	document.getElementById('svg-canvas').innerHTML = null
+	document.getElementById('arr').value = null
+
+}
+function reset2()
+{
+  g = null
+  g = new dagreD3.graphlib.Graph()
+  .setGraph({})
+  .setDefaultEdgeLabel(function() { return {}; });
+  node={};
+  vert=[];
+  mark=[];
+  render = null
+  svg = null
+  document.getElementById('svg-canvas').innerHTML = null
+}
+#+END_SRC
+
+** Layout HTML
+*** HTML for the experiment
+#+BEGIN_SRC  html :tangle /templates/scene06.html :eval no :noweb yes
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Merge Sort</title>
+    <script src="{{ url_for('static', filename='default/js/d3.v3.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/dagre-d3.js')}}"></script>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='default/css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- Plugin CSS -->
+    <link href="{{ url_for('static', filename='default/css/dataTables.bootstrap4.css')}}" rel="stylesheet">
+    <script src="{{ url_for('static', filename='default/js/jquery.min.js')}}"></script>
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='default/css/sb-admin.css')}}" rel="stylesheet">
+    <style id="css">
+      /* This sets the color for "TK" nodes to a light blue green. */
+      g.type-TK > rect {
+        fill: #00ffd0;
+      }
+
+      text {
+        font-weight: 300;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+        font-size: 14px;
+      }
+      i {
+          border: solid black;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+      }
+      .left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+      }
+      .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        float:right;
+      }
+      input {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 10px 0;
+      }
+      #but1 {
+      display: inline-block;
+      vertical-align: middle;
+      }
+      #c{
+      display: inline-block;
+      margin-left: 400px;
+      }
+      #but2 {
+      display: inline-block;
+      vertical-align: middle;
+      }
+
+      .node rect {
+        stroke: #999;
+        fill: #fff;
+        stroke-width: 1.5px;
+      }
+
+      .edgePath path {
+        stroke: #333;
+        stroke-width: 1.5px;
+      }
+      div{
+        z-index:1;
+      }
+      div.bond
+      {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        z-index:3;
+        top: -10px;
+        background-color: #C8C8C8;
+      }
+      .bl{
+        background-color: lightblue;
+      }
+    </style>
+  </head>
+
+  <body class="fixed-nav sticky-footer bg-dark" id="page-top">
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+      <a class="navbar-brand" href="#">DS-Lab</a>
+      <button style="background-color:#bfc9ca;margin-left:31px" class="btn btn-success" onclick="pane()">Pane</button>
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+          <li class="nav-item active" data-toggle="tooltip" data-placement="right" title="Dashboard">
+            <a class="nav-link" href="#">
+              <span class="nav-link-text">
+                Merge-Sort
+              </span>
+            </a>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="References">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+              <span class="nav-link-text">
+                References
+              </span>
+              <i class="down"></i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseComponents">
+              <li>
+                <a href="https://en.wikipedia.org/wiki/Merge_sort">Wiki-pedia</a>
+              </li>
+              <li>
+                <a href="http://www.geeksforgeeks.org/merge-sort/">Geeks for Geeks</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+            <span class="nav-link-text">
+                Quizzes
+            </span>
+            <i class="down"></i>
+            </a>
+            <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+              <li>
+                <a href="#">Quiz-1</a>
+              </li>
+              <li>
+                <a href="#">Quiz-2</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <ul class="navbar-nav sidenav-toggler">
+          <li class="nav-item">
+            <a class="nav-link text-center" id="sidenavToggler">
+              <i class="left"></i>
+            </a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+          <ul class="readcrumb">
+            <li >
+              <a href="#">VLEADS</a>
+            </li>
+            <li>
+              <a href="#">DS -> Merge-Sort</a>
+            </li>
+          </ul>
+          <li class="nav-item">
+            <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+              Logout
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <div class="content-wrapper">
+      <div class="bond">
+        <div class="form-group">
+          <label for="arr" style="font-size:130%">Please enter the array to sort (space separated)</label>
+          <input type="text" id="arr" class="form-control" style="width:55%;font-size: 120%" >
+          <button type="button" id="but1" style="display:inline;position:absolute;left:2%;background-color:#606060;" class="btn btn-success btn-lg" onclick="sort()">Sort</button>
+          <h3 id="c">Merge Sort</h3>
+          <a href='/5' class="btn btn-success btn-lg" style="display:inline;position:absolute;left:83%;background-color:#606060;"><< Back</a>
+          <a href='/7' class="btn btn-success btn-lg" style="display:inline;position:absolute;left:92%;background-color:#606060;">Next >></a>
+          <button type="button" id="but2" style="display:inline;position:absolute;left:75%;background-color:#606060;" class="btn btn-success btn-lg" onclick="reset1()">Reset</button>
+          <br/><br/>
+        </div>
+      </div>
+      <br/>
+    <div class="list-group" style="width:40%">
+      <a href="#" class="list-group-item list-group-item-action  list-group-item-info">
+        <p>
+           Click on the node to split the node into two halves.<br/>
+           Repeat the process to see the recursive structure.
+        </p>
+      </a>
+    </div>
+    <br/><br/>
+      <div class="container-fluid">
+        <div class="card mb-3">
+          <svg id="svg-canvas" width=100% height=600 style="position: absolute;left:35%"></svg>
+        </div>
+        <script src="../static/js/merge.js"></script>
+      </div>
+      <br/><br/><br/>
+    </div>
+
+    <!-- /.container-fluid -->
+    <!-- /.content-wrapper -->
+    <!-- Scroll to Top Button -->
+
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fa fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Select "Logout" below if you are ready to end your current session.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+            <a class="btn btn-primary" href="login.html">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="{{ url_for('static', filename='default/js/jquery.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/popper.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/bootstrap.min.js')}}"></script>
+
+    <!-- Plugin JavaScript -->
+    <script src="{{ url_for('static', filename='default/js/jquery.easing.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/Chart.min.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/jquery.dataTables.js')}}"></script>
+    <script src="{{ url_for('static', filename='default/js/dataTables.bootstrap4.js')}}"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="{{ url_for('static', filename='default/js/sb-admin.min.js')}}"></script>
+  </body>
+
+</html>
+
+#+END_SRC
