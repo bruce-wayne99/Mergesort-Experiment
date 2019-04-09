@@ -1,0 +1,741 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Meetings</title>
+<!-- 2019-04-09 Tue 14:23 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="VLEAD" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../style/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../style/css/bootstrap.mini.css"/>
+<link rel="stylesheet" type="text/css" href="../style/css/labtheme.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../style/js/labtheme.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../index.html"> UP </a>
+ |
+ <a accesskey="H" href="../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Meetings</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+This document captures the minutes from the meetings held
+towards the realization of this project.
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="timestamp-wrapper"><span class="timestamp">[2018-01-25 Thu]</span></span></h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">SSS</h3>
+<div class="outline-text-3" id="text-2-1">
+<ol class="org-ol">
+<li>Semantic style sheet - an ontology
+</li>
+<li>Predicates on the ontology
+</li>
+<li>Transformations on the selections.
+</li>
+</ol>
+</div>
+</div>
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2">Structure of Experiment</h3>
+<div class="outline-text-3" id="text-2-2">
+<ol class="org-ol">
+<li>Navigation, Narration and Evaluation or Execution
+</li>
+<li>A computation is a consistent annotation.
+</li>
+<li>The propagation 
+</li>
+<li>Leave the holes in the skeleton and define where and
+how these holes will get filled
+</li>
+<li>Build the components and structure the scenes using
+these components.
+</li>
+<li>Re lay the experiment as a machine and the components
+how these are annotated or evaluated for the process.
+</li>
+<li>Language's objective
+</li>
+<li>Semantic Engineering - by Falaysen
+</li>
+<li>Checkout project called <code>deepspec</code>.
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="timestamp-wrapper"><span class="timestamp">[2018-02-16 Fri]</span></span></h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1">Agenda</h3>
+<div class="outline-text-3" id="text-3-1">
+<p>
+Prepare a plan for the delivery of the experiment
+integration kit.
+</p>
+</div>
+</div>
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2">Discussion</h3>
+<div class="outline-text-3" id="text-3-2">
+<ol class="org-ol">
+<li>httnps://www.fstar-lang.org/tutorial/ can be a
+starting point.
+</li>
+<li>An experiment is a DAG of dependencies.
+</li>
+<li>There should be free navigation but the objective
+should be an explicit way to accomplish certain tasks
+or interactive activities.
+</li>
+<li>The whole playbook is displayed.
+</li>
+<li>Navigation pane - what is achieved and what is left.
+</li>
+<li>Three things to be accomplished:
+<ol class="org-ol">
+<li>Pedagogy - defines the interactive narrative
+</li>
+<li>Authoring Platform that allows realization of the
+interactive narrative.  The platform provide ways
+to visualize and interact with the narrative.
+</li>
+<li>Create the experiment content to fit the authoring
+platform.
+</li>
+</ol>
+</li>
+<li>Tie the realization with the analytics from the
+initial state.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3">Action Items</h3>
+<div class="outline-text-3" id="text-3-3">
+<ol class="org-ol">
+<li>Work on the three things parallelly, refer point 6.
+</li>
+<li>Write a document how pedagogy is driving the
+realization of mergesort.  Demonstrate the mapping
+between pedagogy and mergesort.
+</li>
+<li>Reorient the team towards the realization of the
+platform.
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="timestamp-wrapper"><span class="timestamp">[2018-03-02 Fri]</span></span></h2>
+<div class="outline-text-2" id="text-4">
+<p>
+Merge Sort will be a trial balloon.  In org one can define
+one's own tags.
+</p>
+
+<ul class="org-ul">
+<li>What kind of services would we envisage to pull the
+components?
+</li>
+<li>Authoring, services, and how do we weave them together?
+</li>
+<li>Portablity - ability to replace the same component with
+a different one from another service.
+</li>
+<li></li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="timestamp-wrapper"><span class="timestamp">[2018-03-19 Mon]</span></span></h2>
+<div class="outline-text-2" id="text-5">
+</div><div id="outline-container-sec-5-1" class="outline-3">
+<h3 id="sec-5-1">Agenda</h3>
+<div class="outline-text-3" id="text-5-1">
+<p>
+Plan the experiment development. 
+</p>
+</div>
+</div>
+<div id="outline-container-sec-5-2" class="outline-3">
+<h3 id="sec-5-2">Discussion</h3>
+<div class="outline-text-3" id="text-5-2">
+<ul class="org-ul">
+<li>How to capture Analytics
+<ol class="org-ol">
+<li><a href="https://scorm.com/what-is-an-lrs-learning-record-store/">https://scorm.com/what-is-an-lrs-learning-record-store/</a>
+</li>
+<li><a href="https://learninglocker.net/">https://learninglocker.net/</a>
+</li>
+<li><a href="https://elearningindustry.com/introduction-tin-can-api">Tin Can API</a>
+</li>
+</ol>
+<p>
+Bayesian networks
+Machine learning assisted human learning
+</p>
+</li>
+<li id="Pipeline of putting up an experiment">SME, ID, GD/UX,
+UI designers, developers
+</li>
+
+<li id="Building the experiment">There are these artefacts,
+activities on these artifacts and observables of
+these activities.
+</li>
+
+<li id="Where do the artefacts sit">CMS is an easy way that
+provides an artifact store, and provides an API to
+pull the resource.
+</li>
+
+<li id="Analytics">Adding the analytics hooks, define subject,
+object and verb.
+</li>
+
+<li id="Widgets">Spec out all the widgets to be built.
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-5-3" class="outline-3">
+<h3 id="sec-5-3">Action Items</h3>
+<div class="outline-text-3" id="text-5-3">
+<ol class="org-ol">
+<li>Mrityunjay will talk to ID and UX designer.
+</li>
+<li>Put this team together.
+</li>
+<li>Calculate the costs to put this team.
+</li>
+<li>Define the combined output and the individual output
+of all these phases.
+</li>
+<li>Build the merge sort for May 1st.
+</li>
+<li>CMS that stores artifacts, author that writes the
+content, a programmer who converts to a web
+application.
+</li>
+<li>Retrofit the pedagogy for the current implementation
+of merge sort.
+</li>
+<li>Retrofit the experiment for this pedagogy - VLEAD
+</li>
+<li>Install CMS and LRS and see how they can be used.
+</li>
+<li>Ask Maruti rao about the publishing platform. 
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-6" class="outline-2">
+<h2 id="sec-6"><span class="timestamp-wrapper"><span class="timestamp">[2018-03-29 Thu]</span></span> - Instructional Design</h2>
+<div class="outline-text-2" id="text-6">
+</div><div id="outline-container-sec-6-1" class="outline-3">
+<h3 id="sec-6-1">Discussion from a previous meeting</h3>
+<div class="outline-text-3" id="text-6-1">
+<ol class="org-ol">
+<li>Inventing domain specific language.
+</li>
+<li>Bring in types.  There is structure for these.  There
+are semantic structures that will be interpreted.
+</li>
+<li>An experiment is a series of instructions.
+</li>
+<li>An instruction is a set of objectives.  How are these
+objectives ordered?  Checks are made to check the
+objectives.
+</li>
+<li>There are 10 kinds of objects.  And there are actions
+on each of these objects.  There is specific vocabulary
+from pedagogy and also from the discipline.
+</li>
+<li>DSL is not a computer executed program, but could be a
+human executed program.  Which instruction that is
+executed depends on the data.  There is a constant
+input that is coming into each step that drives the
+next step.  Computer science is study of processes.
+Vocabulary of the subject is superimposed over the
+vocabulary of pedagogy. 
+
+<p>
+If an experiment can be specified in wither himan
+readable or machine readable. IS the specification
+different from requirements.  Specification is a
+recipe. 
+</p>
+
+<p>
+How do we validate these programs?  The specification
+of an experiment is a program and therefore how can
+this be validated?  There is a notion of equivalence,
+simulation or bi simulation. 
+</p>
+
+<p>
+How is the the flow of information is structured?  From
+SME to ID to UX/UI to implementation.  How to
+industrialize this process?  Every industrial process
+is a pipeline.   
+</p>
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-6-2" class="outline-3">
+<h3 id="sec-6-2">Discussion</h3>
+<div class="outline-text-3" id="text-6-2">
+<ul class="org-ul">
+<li>Operations
+</li>
+<li>Complexity 
+</li>
+<li>How do we map the complexity from the operations
+</li>
+<li>Instruction Design
+<ol class="org-ol">
+<li>Content gaps
+</li>
+<li>Story board is the blue print for the production
+team.  A graphic designer will standardize the the
+UI.
+</li>
+</ol>
+</li>
+<li>What is neeeded by Zia?
+<ol class="org-ol">
+<li>Objective
+</li>
+<li>Pre test content
+</li>
+<li>Introduction
+</li>
+<li>Concept
+</li>
+<li>Practise after each concept
+</li>
+<li>Provide two questions after each practise
+</li>
+<li>A module will have concept definition, explanation,
+practice, reflective questions.
+</li>
+</ol>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-6-3" class="outline-3">
+<h3 id="sec-6-3">Action Items</h3>
+<div class="outline-text-3" id="text-6-3">
+<ol class="org-ol">
+<li>Zia will send an email with the details of her
+engagement.
+</li>
+
+<li>Authoring Tool kit, the output of this will will talk
+to a router.  This is the interface to all the
+services.
+</li>
+
+<li>CMS and LRS installation and see how they can be used.
+</li>
+
+<li>Instructional Design and UX person - prototype
+developed before development starts.
+</li>
+
+<li>Before May 15th - SME and Instruction Design is done
+for 12 exp
+</li>
+
+<li>Build the software architecture diagram of the
+experiments system - MK + Thirumal and Venkatesh
+</li>
+
+<li>What do the students work on ? May be components of
+the player/canvas of the experiments is to be TBD.
+</li>
+
+<li>Identify the tools that are needed Sketch ( create
+assets) and Invision. MK to send the list
+</li>
+
+<li>Get the MAC up and running with Invision, Sketch,
+Articulate and Captivate.
+</li>
+
+<li>Plan of development and work on merge sort - MK.
+</li>
+
+<li>Connect with IIIT Jabalpur Design school - UI
+designing - Venkatesh - No Web design there
+</li>
+
+<li>Connect with IIT G Design school - UI designing -
+Venkatesh -
+</li>
+
+<li>Contact JNTU, BITS Pilani, Cognitive Science for MS
+interns - Venkatesh
+</li>
+
+<li>Thirumal &amp; Team to work on Analytics worked out -
+April 1st ( LRS ( Learning Record System ), Tincan
+API ) - This is to be done only after the basic
+architecture is in place.
+</li>
+</ol>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-7" class="outline-2">
+<h2 id="sec-7"><span class="timestamp-wrapper"><span class="timestamp">[2018-04-04 Wed]</span></span> - Instructional Design</h2>
+<div class="outline-text-2" id="text-7">
+</div><div id="outline-container-sec-7-1" class="outline-3">
+<h3 id="sec-7-1">Attendees</h3>
+<div class="outline-text-3" id="text-7-1">
+<p>
+Venkatesh Choppella, Mrityunjay, Zia, Priya and Thirumal
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7-2" class="outline-3">
+<h3 id="sec-7-2">Agenda</h3>
+</div>
+
+<div id="outline-container-sec-7-3" class="outline-3">
+<h3 id="sec-7-3">Discussion</h3>
+<div class="outline-text-3" id="text-7-3">
+<p>
+The idea is to harness the three dimensions - including
+the depth using the bookmarks as used in fstar.
+</p>
+
+<p>
+Imagine, while reading a book, when we do not need to
+flip pages to refer to a table or a figure but instead
+they are present right there.
+</p>
+
+<p>
+What should be bookmarked? Should each artefact be
+bookmarked?
+</p>
+
+<p>
+There are units of information that are consumed.  Define
+these units and also define the sequence of the
+consumption, or the ordering of these units.  For
+example, whether these units are ordered temporally or
+spatially.  On a laptop, the space could be used, but may
+be on a tab, these units might be presented temporally.
+For visually challenged, the units could be read out. 
+</p>
+
+<p>
+Developing the content as units, the relationship between
+these units and how do we lay them out are how an
+experiment is envisaged. 
+</p>
+
+<p>
+Since an instructional designer knows better ways to
+present the content to students, he or she designs how
+the content is presented from that perspective, or define
+the relation between these units.  A UX designer operates
+at a different level to ensure the medium in this case
+the screens of computers are effectively used to convey
+the learning.
+</p>
+
+<p>
+Instructional effectiveness, learner engagement and
+visual appeal are the three axis of developing an
+experiment.
+</p>
+
+<p>
+The objective is to separate the structure of the content
+from the layout of the content. 
+</p>
+
+<p>
+A teacher knows how to teach a concept or a subject, the
+pedagogy of teaching a subject.  An instructional
+designer ensures the effectiveness of the pedagogy by
+structuring the content. 
+</p>
+
+<p>
+The challenge is to put this team together to build the
+20 experiments.  The team structure is this: SME -&gt; ID -&gt;
+UX -&gt; Graphis Design -&gt; UI -&gt; Development
+</p>
+</div>
+</div>
+
+<div id="outline-container-sec-7-4" class="outline-3">
+<h3 id="sec-7-4">Action Items</h3>
+<div class="outline-text-3" id="text-7-4">
+<ol class="org-ol">
+<li>Back End, start on it.
+</li>
+<li>April 27th, is the presentation at Delhi, present the
+connection between the pedagogy and the experiment.
+</li>
+<li>Ensure the students build the experiments even without
+instructional design but what comes out can still be
+starting points for SME to start the pipeline.
+</li>
+<li>Prof and MK to decide on units on an experiment.
+</li>
+<li>Zia to come up with a new quote
+</li>
+<li>Structure - to have units
+<ol class="org-ol">
+<li>Landing Page - Objective
+</li>
+<li>Introduction + Pretest with score + feedback
+</li>
+<li>Module 1 ( Split )
+<ul class="org-ul">
+<li>Introduction + Defn
+</li>
+<li>Example
+</li>
+<li>Exercise ( replay button)
+</li>
+<li>Quiz with feedback
+</li>
+</ul>
+</li>
+<li>Module 2 ( Merge)
+<ul class="org-ul">
+<li>Introduction + Defn
+</li>
+<li>Example
+</li>
+<li>Exercise ( replay button)
+</li>
+<li>Quiz with feedback
+</li>
+</ul>
+</li>
+<li>Module 3 ( Merge Sort )
+<ul class="org-ul">
+<li>Introduction + Defn
+</li>
+<li>Example
+</li>
+<li>Exercise 1 ( replay button)
+</li>
+<li>Exercise 2 ( replay button)
+</li>
+<li>Quiz with feedback
+</li>
+</ul>
+</li>
+<li>Module 4 ( Time Space )
+<ul class="org-ul">
+<li>Introduction + Defn
+</li>
+<li>Example
+</li>
+<li>Exercise ( replay button)
+</li>
+<li>Quiz
+</li>
+</ul>
+</li>
+<li>Post Test with score
+</li>
+<li>Key takeaways
+</li>
+</ol>
+</li>
+
+<li>Zia to share a template for Prof and Mk to fill the
+content.
+</li>
+<li>Zia will explain the bookmark feature on the landing
+page.
+</li>
+<li>Bookmark behavior to be decided by UX designer and
+implemented by the production team.
+</li>
+<li>Summer interns (10 teams - 2 per team ) to work on
+generating raw content and experiment prototype -
+which would be graded
+</li>
+<li>Zia to work with graphical designer ( for the frame +
+diagram artifacts) and come up with a story board
+which can be consumed by the production team.
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: <span class="timestamp-wrapper"><span class="timestamp">[2018-01-25 Thu]</span></span></p>
+<p class="author">Author: VLEAD</p>
+<p class="date">Created: 2019-04-09 Tue 14:23</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>

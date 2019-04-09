@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>Merge sort experiment Scene-01</title>
+<!-- 2019-04-09 Tue 14:23 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="VLEAD" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<link rel="stylesheet" type="text/css" href="../../style/css/htmlize.css"/>
+<link rel="stylesheet" type="text/css" href="../../style/css/bootstrap.mini.css"/>
+<link rel="stylesheet" type="text/css" href="../../style/css/labtheme.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../style/js/labtheme.js"></script>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="org-div-home-and-up">
+ <a accesskey="h" href="../index.html"> UP </a>
+ |
+ <a accesskey="H" href="../../index.html"> HOME </a>
+</div><div id="content">
+<h1 class="title">Merge sort experiment Scene-01</h1>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Introduction</h2>
+<div class="outline-text-2" id="text-1">
+<ul class="org-ul">
+<li>This template gives an introduction on MergeSort Algorithm.
+</li>
+<li>Explains the basic main three subparts of MergeSort Algorithm. (Split, Sort, Merge)
+</li>
+</ul>
+</div>
+</div>
+
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Code and narration</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1">Layout HTML</h3>
+<div class="outline-text-3" id="text-2-1">
+</div><div id="outline-container-sec-2-1-1" class="outline-4">
+<h4 id="sec-2-1-1">HTML layout for the experiment</h4>
+<div class="outline-text-4" id="text-2-1-1">
+<div class="org-src-container">
+
+<pre class="src src-html">&lt;<span style="font-weight: bold;">!DOCTYPE</span> html&gt;
+&lt;<span style="font-weight: bold;">html</span> <span style="font-weight: bold; font-style: italic;">lang</span>=<span style="font-style: italic;">"en"</span>&gt;
+
+  &lt;<span style="font-weight: bold;">head</span>&gt;
+
+    &lt;<span style="font-weight: bold;">meta</span> <span style="font-weight: bold; font-style: italic;">charset</span>=<span style="font-style: italic;">"utf-8"</span>&gt;
+    &lt;<span style="font-weight: bold;">meta</span> <span style="font-weight: bold; font-style: italic;">http-equiv</span>=<span style="font-style: italic;">"X-UA-Compatible"</span> <span style="font-weight: bold; font-style: italic;">content</span>=<span style="font-style: italic;">"IE=edge"</span>&gt;
+    &lt;<span style="font-weight: bold;">meta</span> <span style="font-weight: bold; font-style: italic;">name</span>=<span style="font-style: italic;">"viewport"</span> <span style="font-weight: bold; font-style: italic;">content</span>=<span style="font-style: italic;">"width=device-width, initial-scale=1, shrink-to-fit=no"</span>&gt;
+
+    &lt;<span style="font-weight: bold;">meta</span> <span style="font-weight: bold; font-style: italic;">name</span>=<span style="font-style: italic;">"description"</span> <span style="font-weight: bold; font-style: italic;">content</span>=<span style="font-style: italic;">""</span>&gt;
+    &lt;<span style="font-weight: bold;">meta</span> <span style="font-weight: bold; font-style: italic;">name</span>=<span style="font-style: italic;">"author"</span> <span style="font-weight: bold; font-style: italic;">content</span>=<span style="font-style: italic;">""</span>&gt;
+    &lt;<span style="font-weight: bold;">title</span>&gt;<span style="font-weight: bold; text-decoration: underline;">Merge Sort</span>&lt;/<span style="font-weight: bold;">title</span>&gt;
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/d3.v3.min.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/dagre-d3.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">Bootstrap core CSS </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+    &lt;<span style="font-weight: bold;">link</span> <span style="font-weight: bold; font-style: italic;">href</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/css/bootstrap.min.css')}}"</span> <span style="font-weight: bold; font-style: italic;">rel</span>=<span style="font-style: italic;">"stylesheet"</span>&gt;
+
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">Plugin CSS </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+    &lt;<span style="font-weight: bold;">link</span> <span style="font-weight: bold; font-style: italic;">href</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/css/dataTables.bootstrap4.css')}}"</span> <span style="font-weight: bold; font-style: italic;">rel</span>=<span style="font-style: italic;">"stylesheet"</span>&gt;
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/jquery.min.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">Custom styles for this template </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+    &lt;<span style="font-weight: bold;">link</span> <span style="font-weight: bold; font-style: italic;">href</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/css/sb-admin.css')}}"</span> <span style="font-weight: bold; font-style: italic;">rel</span>=<span style="font-style: italic;">"stylesheet"</span>&gt;
+    &lt;<span style="font-weight: bold;">style</span> <span style="font-weight: bold; font-style: italic;">id</span>=<span style="font-style: italic;">"css"</span>&gt;
+      /* This sets the color for "TK" nodes to a light blue green. */
+      g.type-TK &gt; rect {
+        fill: #00ffd0;
+      }
+      p
+      {
+        font-size: 18px;
+      }
+      text {
+        font-weight: 300;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+        font-size: 14px;
+      }
+      i {
+          border: solid black;
+          border-width: 0 3px 3px 0;
+          display: inline-block;
+          padding: 3px;
+      }
+      .left {
+        transform: rotate(135deg);
+        -webkit-transform: rotate(135deg);
+      }
+      .down {
+        transform: rotate(45deg);
+        -webkit-transform: rotate(45deg);
+        float:right;
+      }
+      input {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 10px 0;
+      }
+      #but1 {
+      display: inline-block;
+      vertical-align: middle;
+      }
+      #c{
+      display: inline-block;
+      margin-left: 400px;
+      }
+      #but2 {
+      display: inline-block;
+      vertical-align: middle;
+      }
+
+      .node rect {
+        stroke: #999;
+        fill: #fff;
+        stroke-width: 1.5px;
+      }
+
+      .edgePath path {
+        stroke: #333;
+        stroke-width: 1.5px;
+      }
+      div{
+        z-index:1;
+      }
+      div.bond
+      {
+        position: -webkit-sticky; /* Safari */
+        position: sticky;
+        z-index:3;
+        top: -10px;
+        background-color: #C8C8C8;
+      }
+      .bl{
+        background-color: lightblue;
+      }
+    &lt;/<span style="font-weight: bold;">style</span>&gt;
+  &lt;/<span style="font-weight: bold;">head</span>&gt;
+
+  &lt;<span style="font-weight: bold;">body</span> <span style="font-weight: bold; font-style: italic;">class</span>="fixed-nav sticky-footer bg-dark" <span style="font-weight: bold; font-style: italic;">id</span>="page-top"&gt;
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">Navigation </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+    &lt;<span style="font-weight: bold;">nav</span> <span style="font-weight: bold; font-style: italic;">class</span>="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" <span style="font-weight: bold; font-style: italic;">id</span>="mainNav"&gt;
+      &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">class</span>="navbar-brand" <span style="font-weight: bold; font-style: italic;">href</span>="#"&gt;DS-Lab&lt;/<span style="font-weight: bold;">a</span>&gt;
+      &lt;<span style="font-weight: bold;">button</span> <span style="font-weight: bold; font-style: italic;">style</span>="background-color:#bfc9ca;margin-left:31px" <span style="font-weight: bold; font-style: italic;">class</span>="btn btn-success" <span style="font-weight: bold; font-style: italic;">onclick</span>="pane()"&gt;Pane&lt;/<span style="font-weight: bold;">button</span>&gt;
+      &lt;<span style="font-weight: bold;">button</span> <span style="font-weight: bold; font-style: italic;">class</span>="navbar-toggler navbar-toggler-right" <span style="font-weight: bold; font-style: italic;">type</span>="button" <span style="font-weight: bold; font-style: italic;">data-toggle</span>="collapse" <span style="font-weight: bold; font-style: italic;">data-target</span>="#navbarResponsive" <span style="font-weight: bold; font-style: italic;">aria-controls</span>="navbarResponsive" <span style="font-weight: bold; font-style: italic;">aria-expanded</span>="false" <span style="font-weight: bold; font-style: italic;">aria-label</span>="Toggle navigation"&gt;
+        &lt;<span style="font-weight: bold;">span</span> <span style="font-weight: bold; font-style: italic;">class</span>="navbar-toggler-icon"&gt;&lt;/<span style="font-weight: bold;">span</span>&gt;
+      &lt;/<span style="font-weight: bold;">button</span>&gt;
+      &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>="collapse navbar-collapse" <span style="font-weight: bold; font-style: italic;">id</span>="navbarResponsive"&gt;
+        &lt;<span style="font-weight: bold;">ul</span> <span style="font-weight: bold; font-style: italic;">class</span>="navbar-nav navbar-sidenav" <span style="font-weight: bold; font-style: italic;">id</span>="exampleAccordion"&gt;
+          &lt;<span style="font-weight: bold;">li</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-item active" <span style="font-weight: bold; font-style: italic;">data-toggle</span>="tooltip" <span style="font-weight: bold; font-style: italic;">data-placement</span>="right" <span style="font-weight: bold; font-style: italic;">title</span>="Dashboard"&gt;
+            &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-link" <span style="font-weight: bold; font-style: italic;">href</span>="#"&gt;
+              &lt;<span style="font-weight: bold;">span</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-link-text"&gt;
+                Merge-Sort
+              &lt;/<span style="font-weight: bold;">span</span>&gt;
+            &lt;/<span style="font-weight: bold;">a</span>&gt;
+          &lt;/<span style="font-weight: bold;">li</span>&gt;
+          &lt;<span style="font-weight: bold;">li</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-item" <span style="font-weight: bold; font-style: italic;">data-toggle</span>="tooltip" <span style="font-weight: bold; font-style: italic;">data-placement</span>="right" <span style="font-weight: bold; font-style: italic;">title</span>="References"&gt;
+            &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-link nav-link-collapse collapsed" <span style="font-weight: bold; font-style: italic;">data-toggle</span>="collapse" <span style="font-weight: bold; font-style: italic;">href</span>="#collapseComponents" <span style="font-weight: bold; font-style: italic;">data-parent</span>="#exampleAccordion"&gt;
+              &lt;<span style="font-weight: bold;">span</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-link-text"&gt;
+                References
+              &lt;/<span style="font-weight: bold;">span</span>&gt;
+              &lt;<span style="font-weight: bold;">i</span> <span style="font-weight: bold; font-style: italic;">class</span>="down"&gt;&lt;/<span style="font-weight: bold;">i</span>&gt;
+            &lt;/<span style="font-weight: bold;">a</span>&gt;
+            &lt;<span style="font-weight: bold;">ul</span> <span style="font-weight: bold; font-style: italic;">class</span>="sidenav-second-level collapse" <span style="font-weight: bold; font-style: italic;">id</span>="collapseComponents"&gt;
+              &lt;<span style="font-weight: bold;">li</span>&gt;
+                &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">href</span>="https://en.wikipedia.org/wiki/Merge_sort"&gt;Wiki-pedia&lt;/<span style="font-weight: bold;">a</span>&gt;
+              &lt;/<span style="font-weight: bold;">li</span>&gt;
+              &lt;<span style="font-weight: bold;">li</span>&gt;
+                &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">href</span>="http://www.geeksforgeeks.org/merge-sort/"&gt;Geeks for Geeks&lt;/<span style="font-weight: bold;">a</span>&gt;
+              &lt;/<span style="font-weight: bold;">li</span>&gt;
+            &lt;/<span style="font-weight: bold;">ul</span>&gt;
+          &lt;/<span style="font-weight: bold;">li</span>&gt;
+          &lt;<span style="font-weight: bold;">li</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-item" <span style="font-weight: bold; font-style: italic;">data-toggle</span>="tooltip" <span style="font-weight: bold; font-style: italic;">data-placement</span>="right" <span style="font-weight: bold; font-style: italic;">title</span>="Example Pages"&gt;
+            &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-link nav-link-collapse collapsed" <span style="font-weight: bold; font-style: italic;">data-toggle</span>="collapse" <span style="font-weight: bold; font-style: italic;">href</span>="#collapseExamplePages" <span style="font-weight: bold; font-style: italic;">data-parent</span>="#exampleAccordion"&gt;
+              &lt;<span style="font-weight: bold;">span</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-link-text"&gt;
+                Quizzes
+              &lt;/<span style="font-weight: bold;">span</span>&gt;
+              &lt;<span style="font-weight: bold;">i</span> <span style="font-weight: bold; font-style: italic;">class</span>="down"&gt;&lt;/<span style="font-weight: bold;">i</span>&gt;
+            &lt;/<span style="font-weight: bold;">a</span>&gt;
+            &lt;<span style="font-weight: bold;">ul</span> <span style="font-weight: bold; font-style: italic;">class</span>="sidenav-second-level collapse" <span style="font-weight: bold; font-style: italic;">id</span>="collapseExamplePages"&gt;
+              &lt;<span style="font-weight: bold;">li</span>&gt;
+                &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">href</span>="#"&gt;Quiz-1&lt;/<span style="font-weight: bold;">a</span>&gt;
+              &lt;/<span style="font-weight: bold;">li</span>&gt;
+              &lt;<span style="font-weight: bold;">li</span>&gt;
+                &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">href</span>="#"&gt;Quiz-2&lt;/<span style="font-weight: bold;">a</span>&gt;
+              &lt;/<span style="font-weight: bold;">li</span>&gt;
+            &lt;/<span style="font-weight: bold;">ul</span>&gt;
+          &lt;/<span style="font-weight: bold;">li</span>&gt;
+        &lt;/<span style="font-weight: bold;">ul</span>&gt;
+        &lt;<span style="font-weight: bold;">ul</span> <span style="font-weight: bold; font-style: italic;">class</span>="navbar-nav sidenav-toggler"&gt;
+          &lt;<span style="font-weight: bold;">li</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-item"&gt;
+            &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">class</span>="nav-link text-center" <span style="font-weight: bold; font-style: italic;">id</span>="sidenavToggler"&gt;
+              &lt;<span style="font-weight: bold;">i</span> <span style="font-weight: bold; font-style: italic;">class</span>="left"&gt;&lt;/<span style="font-weight: bold;">i</span>&gt;
+            &lt;/<span style="font-weight: bold;">a</span>&gt;
+          &lt;/<span style="font-weight: bold;">li</span>&gt;
+        &lt;/<span style="font-weight: bold;">ul</span>&gt;
+        &lt;<span style="font-weight: bold;">ul</span> <span style="font-weight: bold; font-style: italic;">class</span>="navbar-nav ml-auto"&gt;
+          &lt;<span style="font-weight: bold;">ul</span> <span style="font-weight: bold; font-style: italic;">class</span>="readcrumb"&gt;
+            &lt;<span style="font-weight: bold;">li</span> &gt;
+              &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">href</span>="#"&gt;VLEADS&lt;/<span style="font-weight: bold;">a</span>&gt;
+            &lt;/<span style="font-weight: bold;">li</span>&gt;
+            &lt;<span style="font-weight: bold;">li</span>&gt;
+                &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">href</span>="#"&gt;DS -&gt; Merge-Sort&lt;/<span style="font-weight: bold;">a</span>&gt;
+            &lt;/<span style="font-weight: bold;">li</span>&gt;
+          &lt;/<span style="font-weight: bold;">ul</span>&gt;
+          &lt;<span style="font-weight: bold;">li</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"nav-item"</span>&gt;
+            &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"nav-link"</span> <span style="font-weight: bold; font-style: italic;">data-toggle</span>=<span style="font-style: italic;">"modal"</span> <span style="font-weight: bold; font-style: italic;">data-target</span>=<span style="font-style: italic;">"#exampleModal"</span>&gt;
+              Logout
+            &lt;/<span style="font-weight: bold;">a</span>&gt;
+          &lt;/<span style="font-weight: bold;">li</span>&gt;
+        &lt;/<span style="font-weight: bold;">ul</span>&gt;
+      &lt;/<span style="font-weight: bold;">div</span>&gt;
+    &lt;/<span style="font-weight: bold;">nav</span>&gt;
+    &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"content-wrapper"</span>&gt;
+      &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"panel panel-default"</span>&gt;
+        &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"panel-heading"</span> <span style="font-weight: bold; font-style: italic;">style</span>=<span style="font-style: italic;">"text-align: center"</span>&gt;
+          &lt;<span style="font-weight: bold;">h3</span>&gt;
+<span style="font-style: italic; text-decoration: underline;">            MergeSort Introduction</span>
+<span style="font-style: italic; text-decoration: underline;">          </span>&lt;/<span style="font-weight: bold;">h3</span>&gt;
+          &lt;<span style="font-weight: bold;">br</span>/&gt;&lt;<span style="font-weight: bold;">br</span>/&gt;&lt;<span style="font-weight: bold;">br</span>/&gt;
+        &lt;/<span style="font-weight: bold;">div</span>&gt;
+      &lt;/<span style="font-weight: bold;">div</span>&gt;
+      &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"container-fluid"</span>&gt;
+        &lt;<span style="font-weight: bold;">h4</span>&gt;
+<span style="text-decoration: underline;">          MergeSort Involves the following steps</span>
+<span style="text-decoration: underline;">        </span>&lt;/<span style="font-weight: bold;">h4</span>&gt;
+        &lt;<span style="font-weight: bold;">table</span> <span style="font-weight: bold; font-style: italic;">width</span>=<span style="font-style: italic;">"100%"</span>&gt;
+          &lt;<span style="font-weight: bold;">tr</span>&gt;
+            &lt;<span style="font-weight: bold;">td</span>&gt;
+              &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"well well-lg"</span> <span style="font-weight: bold; font-style: italic;">width</span>=<span style="font-style: italic;">"50%"</span>&gt;    
+                &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"list-group"</span> <span style="font-weight: bold; font-style: italic;">style</span>=<span style="font-style: italic;">"width:40%"</span>&gt;
+                  &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">href</span>=<span style="font-style: italic;">"#"</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"list-group-item list-group-item-action  list-group-item-info"</span>&gt;
+                    &lt;<span style="font-weight: bold;">h4</span>&gt;<span style="text-decoration: underline;">SPLIT</span>&lt;/<span style="font-weight: bold;">h4</span>&gt;
+                    &lt;<span style="font-weight: bold;">p</span>&gt;Splits the input array in two halves&lt;/<span style="font-weight: bold;">p</span>&gt;
+                  &lt;/<span style="font-weight: bold;">a</span>&gt;
+                  &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">href</span>=<span style="font-style: italic;">"#"</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"list-group-item list-group-item-action list-group-item-success"</span>&gt;
+                    &lt;<span style="font-weight: bold;">h4</span>&gt;<span style="text-decoration: underline;">MERGE SORT</span>&lt;/<span style="font-weight: bold;">h4</span>&gt;
+                    &lt;<span style="font-weight: bold;">p</span>&gt;Perform MergeSort on the two halves&lt;/<span style="font-weight: bold;">p</span>&gt;
+                  &lt;/<span style="font-weight: bold;">a</span>&gt;
+                  &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">href</span>=<span style="font-style: italic;">"#"</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"list-group-item list-group-item-action list-group-item-warning active"</span>&gt;
+                    &lt;<span style="font-weight: bold;">h4</span>&gt;<span style="text-decoration: underline;">MERGE</span>&lt;/<span style="font-weight: bold;">h4</span>&gt;
+                    &lt;<span style="font-weight: bold;">p</span>&gt;Merge the two halves to get the sorted array&lt;/<span style="font-weight: bold;">p</span>&gt;
+                  &lt;/<span style="font-weight: bold;">a</span>&gt;
+                &lt;/<span style="font-weight: bold;">div</span>&gt;
+              &lt;/<span style="font-weight: bold;">div</span>&gt;
+            &lt;/<span style="font-weight: bold;">td</span>&gt;
+            &lt;<span style="font-weight: bold;">td</span>&gt;
+              &lt;<span style="font-weight: bold;">img</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='images/1.png')}}"</span> <span style="font-weight: bold; font-style: italic;">alt</span>=<span style="font-style: italic;">"MergeSort overview"</span>/&gt;
+            &lt;/<span style="font-weight: bold;">td</span>&gt;
+          &lt;/<span style="font-weight: bold;">tr</span>&gt;
+        &lt;/<span style="font-weight: bold;">table</span>&gt;
+        &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">style</span>=<span style="font-style: italic;">"text-align: center"</span>&gt;
+          &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">href</span>='/2' <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"btn btn-primary"</span> <span style="font-weight: bold; font-style: italic;">role</span>=<span style="font-style: italic;">"button"</span>&gt;Next &gt;&gt;&lt;/<span style="font-weight: bold;">a</span>&gt;
+        &lt;/<span style="font-weight: bold;">div</span>&gt;
+      &lt;/<span style="font-weight: bold;">div</span>&gt;
+    &lt;/<span style="font-weight: bold;">div</span>&gt;
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">/.container-fluid </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">/.content-wrapper </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">Scroll to Top Button </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+    &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"scroll-to-top rounded"</span> <span style="font-weight: bold; font-style: italic;">href</span>=<span style="font-style: italic;">"#page-top"</span>&gt;
+      &lt;<span style="font-weight: bold;">i</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"fa fa-angle-up"</span>&gt;&lt;/<span style="font-weight: bold;">i</span>&gt;
+    &lt;/<span style="font-weight: bold;">a</span>&gt;
+
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">Logout Modal </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+    &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"modal fade"</span> <span style="font-weight: bold; font-style: italic;">id</span>=<span style="font-style: italic;">"exampleModal"</span> <span style="font-weight: bold; font-style: italic;">tabindex</span>=<span style="font-style: italic;">"-1"</span> <span style="font-weight: bold; font-style: italic;">role</span>=<span style="font-style: italic;">"dialog"</span> <span style="font-weight: bold; font-style: italic;">aria-labelledby</span>=<span style="font-style: italic;">"exampleModalLabel"</span> <span style="font-weight: bold; font-style: italic;">aria-hidden</span>=<span style="font-style: italic;">"true"</span>&gt;
+      &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"modal-dialog"</span> <span style="font-weight: bold; font-style: italic;">role</span>=<span style="font-style: italic;">"document"</span>&gt;
+        &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"modal-content"</span>&gt;
+          &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"modal-header"</span>&gt;
+            &lt;<span style="font-weight: bold;">h5</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"modal-title"</span> <span style="font-weight: bold; font-style: italic;">id</span>=<span style="font-style: italic;">"exampleModalLabel"</span>&gt;<span style="text-decoration: underline;">Ready to Leave?</span>&lt;/<span style="font-weight: bold;">h5</span>&gt;
+            &lt;<span style="font-weight: bold;">button</span> <span style="font-weight: bold; font-style: italic;">type</span>=<span style="font-style: italic;">"button"</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"close"</span> <span style="font-weight: bold; font-style: italic;">data-dismiss</span>=<span style="font-style: italic;">"modal"</span> <span style="font-weight: bold; font-style: italic;">aria-label</span>=<span style="font-style: italic;">"Close"</span>&gt;
+              &lt;<span style="font-weight: bold;">span</span> <span style="font-weight: bold; font-style: italic;">aria-hidden</span>=<span style="font-style: italic;">"true"</span>&gt;<span style="font-weight: bold; font-style: italic;">&amp;times;</span>&lt;/<span style="font-weight: bold;">span</span>&gt;
+            &lt;/<span style="font-weight: bold;">button</span>&gt;
+          &lt;/<span style="font-weight: bold;">div</span>&gt;
+          &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"modal-body"</span>&gt;
+            Select <span style="font-style: italic;">"Logout"</span> below if you are ready to end your current session.
+          &lt;/<span style="font-weight: bold;">div</span>&gt;
+          &lt;<span style="font-weight: bold;">div</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"modal-footer"</span>&gt;
+            &lt;<span style="font-weight: bold;">button</span> <span style="font-weight: bold; font-style: italic;">type</span>=<span style="font-style: italic;">"button"</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"btn btn-secondary"</span> <span style="font-weight: bold; font-style: italic;">data-dismiss</span>=<span style="font-style: italic;">"modal"</span>&gt;Cancel&lt;/<span style="font-weight: bold;">button</span>&gt;
+            &lt;<span style="font-weight: bold;">a</span> <span style="font-weight: bold; font-style: italic;">class</span>=<span style="font-style: italic;">"btn btn-primary"</span> <span style="font-weight: bold; font-style: italic;">href</span>=<span style="font-style: italic;">"login.html"</span>&gt;Logout&lt;/<span style="font-weight: bold;">a</span>&gt;
+          &lt;/<span style="font-weight: bold;">div</span>&gt;
+        &lt;/<span style="font-weight: bold;">div</span>&gt;
+      &lt;/<span style="font-weight: bold;">div</span>&gt;
+    &lt;/<span style="font-weight: bold;">div</span>&gt;
+
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">Bootstrap core JavaScript </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/jquery.min.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/popper.min.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/bootstrap.min.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">Plugin JavaScript </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/jquery.easing.min.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/Chart.min.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/jquery.dataTables.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/dataTables.bootstrap4.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+    <span style="font-weight: bold; font-style: italic;">&lt;!-- </span><span style="font-weight: bold; font-style: italic;">Custom scripts for this template </span><span style="font-weight: bold; font-style: italic;">--&gt;</span>
+    &lt;<span style="font-weight: bold;">script</span> <span style="font-weight: bold; font-style: italic;">src</span>=<span style="font-style: italic;">"{{ url_for('static', filename='default/js/sb-admin.min.js')}}"</span>&gt;&lt;/<span style="font-weight: bold;">script</span>&gt;
+  &lt;/<span style="font-weight: bold;">body</span>&gt;
+
+&lt;/<span style="font-weight: bold;">html</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="date">Date: <span class="timestamp-wrapper"><span class="timestamp">[2017-12-04 MON]</span></span></p>
+<p class="author">Author: VLEAD</p>
+<p class="date">Created: 2019-04-09 Tue 14:23</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.5.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
